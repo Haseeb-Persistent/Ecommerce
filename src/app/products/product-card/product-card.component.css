@@ -1,0 +1,140 @@
+.product-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  position: relative;
+  transition: 0.3s;
+  border: 3px solid transparent;
+  width: 100%;
+  min-width: 300px;   
+  max-width: 320px;  
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  min-height: 450px;
+}
+
+.row{
+    gap: 20px;
+}
+.product-card:hover {
+  border: 3px solid #c20330; 
+  box-shadow: 0 8px 25px rgba(194, 3, 48, 0.4); /* shadow color #c20330 */
+}
+
+.was-price {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(201, 78, 21, 0.1);
+  color: #c20330;
+  font-size: 12px;
+}
+
+.product-img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+
+.product-title {
+  font-weight: 700;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: #777;
+}
+
+.color-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ccc;
+  border: 1px solid #ddd;
+}
+
+.dot.active {
+  background: #000;
+}
+
+.more {
+  font-size: 13px;
+  color: #555;
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.discount {
+  color: #c20330;
+  font-weight: 600;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin: 6px 0 0;
+}
+
+.price {
+  color: #c20330;
+  font-weight: 800;
+}
+
+.buy-btn {
+  background: #c20330;
+  color: #fff;
+  border-radius: 999px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.buy-btn:hover {
+  background: none;
+    color: #c20330;
+    border: #c20330 3px solid;
+}
+
+
+.badge-wrapper {
+  display: inline-flex;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-featured {
+  background: #c20330;
+  color: #fff;
+  padding: 4px 10px;
+}
+
+.badge-discount {
+  background: #2fbf71;
+  color: #fff;
+  padding: 4px 8px;
+}
+
+.more-btn {
+  cursor: pointer;
+  font-size: 12px;
+  color: #c20330;
+}

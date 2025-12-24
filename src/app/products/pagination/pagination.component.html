@@ -1,0 +1,23 @@
+<div class="pagination-container">
+  <!-- Left Arrow -->
+  <button class="pagination-btn-ctrl" (click)="prevPage()" [disabled]="currentPage === 0">
+    &#10094;
+  </button>
+
+  <!-- Page Numbers -->
+<button *ngFor="let page of getPaginationArray()"
+        class="pagination-btn"
+        [ngClass]="{'active': page === currentPage}"
+        (click)="goToPage(page)"
+        [disabled]="page === '...'">
+
+  {{ getLabel(page) }}
+
+</button>
+
+
+  <!-- Right Arrow -->
+  <button class="pagination-btn-ctrl" (click)="nextPage()" [disabled]="currentPage === totalPages() - 1">
+    &#10095;
+  </button>
+</div>

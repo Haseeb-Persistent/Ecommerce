@@ -1,0 +1,21 @@
+<div class="row g-3 align-items-end justify-content-end mb-3">
+  <!-- Show Dropdown -->
+  <div class="col-md-3">
+    <label for="sortSelect" class="form-label">Show</label>
+    <select class="form-select custom-select"
+            [value]="itemToShow"
+            (change)="itemToShowChange($event)">
+      <option *ngFor="let option of sortOptions" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+
+  <!-- Sort By Dropdown -->
+  <div class="col-md-3">
+    <label for="featuredSelect" class="form-label">Sort By</label>
+    <select class="form-select custom-select"
+            [value]="sortBy"
+            (change)="sortByChange($event)">
+      <option *ngFor="let option of featuredOptions" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+</div>

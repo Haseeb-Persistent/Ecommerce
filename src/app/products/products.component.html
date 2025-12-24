@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <app-filter (filterChanged)="onFilterChanged($event)"></app-filter>
+        </div>
+        <div class="col-9">
+            <app-sort-header (sortHeaderChanges)="sortHeaderChanges($event)"></app-sort-header>
+            <div  class="py-3 fs-4 " > 
+                <span class="fw-bold">
+                {{count}}
+
+                </span>
+                  Product-Found</div>
+            <div class="product-grid">
+           <app-product-card *ngFor="let p of products" [product]="p" ></app-product-card>
+                 
+            </div>
+<app-pagination [pageItemS]="200" [pageSize]="5" [currentPage]="1"(pageChanged)="display($event)"></app-pagination>
+        </div>
+    </div>
+</div>  

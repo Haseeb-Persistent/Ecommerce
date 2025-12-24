@@ -1,0 +1,124 @@
+/* ---------- Footer CSS (paste in styles.css) ---------- */
+/* basic reset for footer area */
+.site-footer {
+  background: #f6fbf9; /* very light greenish/gray like screenshot */
+  color: #2c2c2c;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 48px 0 20px;
+}
+
+.container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* grid of columns */
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+/* column heading */
+.site-footer h4 {
+  font-size: 15px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #0f1720;
+}
+
+/* lists */
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.site-footer li {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.site-footer a {
+  text-decoration: none;
+  color: rgba(15,23,32,0.7);
+}
+.site-footer a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* partners row */
+.partners {
+  border-top: 1px solid rgba(0,0,0,0.04);
+  margin: 18px 0;
+  padding: 18px 0;
+  background: transparent;
+}
+.partners-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.partners-left {
+  color: rgba(15,23,32,0.6);
+  font-weight: 600;
+  font-size: 14px;
+}
+.partners-logos img {
+  margin-left: 12px;
+  height: 30px;
+  object-fit: contain;
+  filter: saturate(0.95);
+}
+
+/* bottom area */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.03);
+  margin-top: 8px;
+}
+.footer-bottom .copyright {
+  color: rgba(15,23,32,0.6);
+  font-size: 13px;
+}
+.footer-extra .small-link {
+  margin-left: 14px;
+  color: rgba(15,23,32,0.6);
+  text-decoration: none;
+  font-size: 13px;
+}
+.footer-extra .small-link:hover {
+  color: #000;
+}
+
+/* muted link style */
+.link-muted { color: #2079b7; }
+
+/* responsive behavior */
+@media (max-width: 1100px) {
+  .footer-columns { gap: 18px; }
+}
+
+@media (max-width: 900px) {
+  .footer-columns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .partners-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .partners-logos img { margin-left: 0; margin-right: 8px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+@media (max-width: 540px) {
+  .footer-columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .site-footer { padding: 28px 0 16px; }
+  .container { width: 95%; }
+}

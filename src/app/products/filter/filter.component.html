@@ -1,0 +1,113 @@
+<div class="filter-container my-3 mb-4  p-3 ">
+      <div class="filter-header mb-5 mt-3">
+         <h2 style="font-weight: 700;font-size: 28px;color:#c20330">
+             Filter
+         </h2>
+      </div>
+
+      <div class="filter-section">
+          <div class="card mb-3  "    >
+                  <div class="card-header border-bottom bg-white align-item-center d-flex" >
+                     <h5 style="font-weight: 600;font-size: 16px;">
+                         Category
+                     </h5>
+                  </div>
+                  <div class="card-body" style="list-style: none;">
+                     <div style="overflow-y: scroll;max-height: 150px;">
+      <div class="form-check" *ngFor="let category of categories$ | async; let i = index">
+  <input
+    class="form-check-input"
+    type="checkbox"
+    [id]="'chk' + i"
+    [value]="category.id"
+    (change)="toggleCategory(category.id)"
+    name="features"
+  >
+  <label class="form-check-label" [for]="'chk' + i">
+    {{ category.name }}
+  </label>
+</div>
+      </div>
+              </div>
+          </div>
+  
+             <div class="card mb-3" >
+                  <div class="card-header border-bottom bg-white align-item-center d-flex" >
+                     <h5 style="font-weight: 600;font-size: 16px;">
+                         Brands
+                     </h5>
+                  </div>
+                  <div class="card-body" style="list-style: none;">
+                         <div class="form-check " *ngFor="let brand of brands$ | async; let i = index" >
+  <input
+    class="form-check-input"
+    type="checkbox"
+    (change)="toggleBrand(brand.id)"
+    [id]="'chk' + i"
+    [value]="brand.id"
+    name="features"
+  >
+  <label class="form-check-label" [for]="'chk' + i">
+    {{ brand.name }}
+  </label>
+ </div>
+                  </div>
+              </div>
+                    <div class="card mb-3" style="overflow-y: hidden;max-height: 130px;" >
+                  <div class="card-header border-bottom bg-white align-item-center d-flex" >
+                     <h5 style="font-weight: 600;font-size: 16px;">
+                         Stocks
+                     </h5>
+                  </div>
+                  <div class="card-body" style="list-style: none;">
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" [value]="true" (change)="toggleStockType(true)" >
+  <label class="btn btn-outline-primary" for="btnradio1">InStock</label>
+
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [value]="false" (change)="toggleStockType(false)">
+  <label class="btn btn-outline-primary" for="btnradio2">OutStock</label>
+</div>
+
+
+
+                  </div>
+              </div>
+                    <div class="card mb-3"  >
+                  <div class="card-header border-bottom bg-white align-item-center d-flex" >
+                     <h5 style="font-weight: 600;font-size: 16px;">
+                         Price
+                     </h5>
+                  </div>
+                  <div class="card-body">
+<div id="price-range">
+  <input type="range" class="form-range"
+         [min]="minPrice" [max]="maxPrice"
+         [(ngModel)]="selectedMinPrice" 
+         (input)="onMinPriceChange()">
+
+  <input type="range" class="form-range"
+         [min]="minPrice" [max]="maxPrice"
+         [(ngModel)]="selectedMaxPrice"
+         (input)="onMaxPriceChange()">
+</div>
+   <small>Price : {{ selectedMaxPrice | currency:'PKR'}} - {{selectedMinPrice | currency:'PKR'}}</small>
+
+
+                  </div>
+              </div>
+                    <div class="card" style="overflow-y: scroll;max-height: 100%;" >
+                  <div class="card-header border-bottom bg-white align-item-center d-flex" >
+                     <h5 style="font-weight: 600;font-size: 16px;">
+                         Ratings
+                     </h5>
+                  </div>
+                  <div class="card-body" style="list-style: none;">
+                    <div *ngFor="let rating of rating" class="d-flex align-items-center  mb-3">
+                        <input type="checkbox" class="form-check-input" (change)="toggleRating(rating.value)">
+                    <app-rating [rating]="rating.value"></app-rating>
+                  </div>
+                  </div>
+              </div>
+</div>
+      </div>
+

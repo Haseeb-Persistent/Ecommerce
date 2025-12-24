@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+*{
+     font-family: "Poppins", sans-serif;
+ 
+}
+
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  box-shadow: none !important;
+  border-radius: 0px;
+}
+
+.form-check-input:checked {
+  background-color: #c20330;
+  transition: 0.2s ease-out;
+  border-color: #c20330;
+}
+.form-check-label {
+  cursor: pointer;
+  font-size: 15px;
+  color: #000000;
+  
+}
+
+.dropdown-menu {
+  border-radius: 10px;
+  padding: 10px 0;
+}
+
+.dropdown-item {
+  transition:  0.5s ease;
+  padding: 10px;
+}
+
+.dropdown-item:hover {
+  background-color: #c20330;
+  color: #fff;
+}

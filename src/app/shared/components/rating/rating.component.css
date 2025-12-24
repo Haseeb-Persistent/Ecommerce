@@ -1,0 +1,19 @@
+.rating-stars {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.filled-star {
+  color: #FFD700 !important;
+  font-size: 20px !important;
+}
+
+.empty-star {
+  color: #ccc !important;
+  font-size: 20px !important;
+}
+
+.rating-stars i:hover {
+  transform: scale(1.2);
+}

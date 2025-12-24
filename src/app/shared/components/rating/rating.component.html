@@ -1,0 +1,13 @@
+<div class="rating-stars">
+  <!-- Filled Stars -->
+
+
+  <ng-container *ngFor="let star of [].constructor(rating)">
+    <i class="bi bi-star-fill filled-star"></i>
+  </ng-container>
+
+  <!-- Empty Stars -->
+  <ng-container *ngFor="let star of [].constructor(5 - rating)">
+    <i class="bi bi-star empty-star"></i>
+  </ng-container>
+</div>

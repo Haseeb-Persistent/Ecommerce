@@ -1,0 +1,32 @@
+.form-select{
+    width: 100% !important;
+}
+
+/* Apply to all custom-select dropdowns */
+.custom-select {
+  border-radius: 10px !important;
+  padding: 10px !important;
+  background-color: #fff !important;
+  color: #333 !important;
+  border: 1px solid #ccc !important;
+  transition: 0.5s all !important;
+  appearance: none !important; /* remove default arrow for modern look */
+}
+
+/* On hover/focus */
+.custom-select:hover,
+.custom-select:focus {
+  border-color: #c20330 !important;
+  box-shadow: 0 0 5px rgba(194,3,48,0.5) !important;
+  outline: none !important;
+}
+.form-label{
+  font-size: 16px;
+  line-height: 3px;
+  font-weight: 500;
+
+}
+/* Options styling (limited by browser) */
+.custom-select option {
+  padding: 10px !important;
+}
