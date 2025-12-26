@@ -6,6 +6,6 @@
 
 
 export const environment = {
-  baseApi: 'https://haseebapieshop.runasp.net/api/',
-  imageBaseApi: 'https://haseebapieshop.runasp.net'
+  baseApi: 'http://haseebapieshop.runasp.net/api/',
+  imageBaseApi: 'http://haseebapieshop.runasp.net'
 };
