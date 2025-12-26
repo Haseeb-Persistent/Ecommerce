@@ -11,17 +11,18 @@ export class CatalogService {
 constructor(private http:HttpClient) { }
 
   getCategories(){
-    return this.http.get<ResponseDto<CatagoryResDto[]>>('Catalog/category/getall')
+    return this.http.get<ResponseDto<CatagoryResDto[]>>('/Catalog/category/getall')
   }
   getBrands(){
-    return this.http.get<ResponseDto<BrandResDto[]>>('Catalog/brand/getall')
+    return this.http.get<ResponseDto<BrandResDto[]>>('/Catalog/brand/getall')
   }
 getAllProducts(filter: ProductFilter) {
   return this.http.post<ResponseDto<ProductPaginationRes>>(
-    'Catalog/product/getall',
+    '/Catalog/product/getall',
     filter
   );
-}
 
+
+}
 
 }

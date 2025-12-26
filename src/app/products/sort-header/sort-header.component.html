@@ -1,4 +1,11 @@
 <div class="row g-3 align-items-end justify-content-end mb-3">
+ 
+ 
+           <div  class="py-3 fs-4 " *ngIf="pageItem" > 
+                <span class="fw-bold">
+                {{pageItem}}
+                </span>
+                  Product-Found</div>
   <!-- Show Dropdown -->
   <div class="col-md-3">
     <label for="sortSelect" class="form-label">Show</label>
@@ -15,7 +22,7 @@
     <select class="form-select custom-select"
             [value]="sortBy"
             (change)="sortByChange($event)">
-      <option *ngFor="let option of featuredOptions" [value]="option">{{ option }}</option>
+      <option *ngFor="let option of featuredOptions" [value]="option.value">{{ option.name }}</option>
     </select>
   </div>
 </div>

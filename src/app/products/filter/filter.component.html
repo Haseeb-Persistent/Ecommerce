@@ -79,7 +79,7 @@
                      </h5>
                   </div>
                   <div class="card-body">
-<div id="price-range">
+<div id="price-range" >
   <input type="range" class="form-range"
          [min]="minPrice" [max]="maxPrice"
          [(ngModel)]="selectedMinPrice" 
@@ -90,9 +90,9 @@
          [(ngModel)]="selectedMaxPrice"
          (input)="onMaxPriceChange()">
 </div>
-   <small>Price : {{ selectedMaxPrice | currency:'PKR'}} - {{selectedMinPrice | currency:'PKR'}}</small>
+   <small>Price : {{ selectedMaxPrice||maxPrice | currency:'PKR'}} - {{selectedMinPrice||minPrice | currency:'PKR'}}</small>
 
-
+  <!-- <button class="btn btn-primary btn-sm d-block mt-3" (click)="reset()">reset</button>  -->
                   </div>
               </div>
                     <div class="card" style="overflow-y: scroll;max-height: 100%;" >

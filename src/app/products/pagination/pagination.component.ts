@@ -8,13 +8,13 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 export class PaginationComponent   {
 
 
-  @Input() pageItemS = 240;  // total items
-  @Input() pageSize = 20;     // items per page
+  @Input() pageItems!: number;  // total items
+  @Input() pageSize! :number;     // items per page
   @Input() currentPage = 0;   // 0-based index
   @Output() pageChanged = new EventEmitter<number>();
 
   totalPages(): number {
-    return Math.ceil(this.pageItemS / this.pageSize);
+    return Math.ceil(this.pageItems / this.pageSize);
   }
 
   getPaginationArray(): (number | string)[] {

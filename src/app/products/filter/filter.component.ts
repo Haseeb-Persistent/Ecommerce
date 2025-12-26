@@ -33,12 +33,14 @@ this.categories$ = this.store.select(selectCategories);
       .subscribe();
      
    }
+
+
   @Input() selectedCategoryIds: number  []=[];
   @Input() selectedBrandIds: number  []=[];
   @Input() selectedStockType: boolean = true;
   @Input() selectedRating: number  []=[];
-  @Input() minPrice: number = 0;
-  @Input() maxPrice: number = 3000;
+  @Input() minPrice!: number;
+  @Input() maxPrice!: number;
   @Input() selectedMinPrice: number = this.minPrice;
   @Input() selectedMaxPrice: number = this.maxPrice;
   @Output() filterChanged=new EventEmitter<any>();
