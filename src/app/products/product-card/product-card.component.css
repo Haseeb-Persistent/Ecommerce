@@ -15,6 +15,21 @@
   justify-content: space-between; 
   min-height: 450px;
 }
+.product-desc {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000;
+}
+
+/* 2 lines + dots */
+.product-desc.clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .row{
     gap: 20px;
@@ -36,7 +51,7 @@
 .product-img {
   width: 100%;
   height: auto;
-  max-height: 220px;
+  max-height: 190px;
   object-fit: contain;
   margin-bottom: 10px;
 }

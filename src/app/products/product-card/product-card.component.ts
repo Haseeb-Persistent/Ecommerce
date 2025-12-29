@@ -11,7 +11,6 @@ export class ProductCardComponent {
   
 @Input() product!:ProductResDto;
 showMore = false;
-showMoreBtn = true;
 apiUrl = environment.imageBaseApi;
 
   getImageUrl(): string {

@@ -14,17 +14,11 @@
   <div class="product-body">
     <h5 class="product-title">{{ product.name }}</h5>
 
-    <span class="product-desc" [class.clamp]="!showMore">
-      {{ product.description }}
-    </span>
+<span class="product-desc" [class.clamp]="!showMore">
+  {{ product.description }}
+</span>
 
-    <a
-      *ngIf="product.description.length > 10"
-      (click)="showMore = !showMore"
-      class="more-btn"
-    >
-      {{ showMore ? 'Less' : 'More' }}
-    </a>
+
 
     <div class="rating">
       ⭐ {{ product.avearageRating }}
