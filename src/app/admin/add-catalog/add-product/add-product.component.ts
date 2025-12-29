@@ -66,6 +66,15 @@ this.catalogService.getBrands().subscribe(res => {
       formData.append('Thumbnail', this.selectedImage); 
     }
 
- 
+    this.catalogService.AddProduct(formData).subscribe({
+      next: (res) => {
+        console.log('Product added successfully', res);
+        this.productForm.reset();
+        this.selectedImage = null;
+      },
+      error: (err) => {
+        console.error('Error adding product', err);
+      }
+    });
   }
 }

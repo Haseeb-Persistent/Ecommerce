@@ -32,6 +32,12 @@ AddBrand(formData: FormData): Observable<any> {
     formData
   );
 }
+AddProduct(formData: FormData): Observable<any> {
+  return this.http.post(
+    'https://haseebapieshop.runasp.net/api/Catalog/product/create',
+    formData
+  );
+}
 
 
 

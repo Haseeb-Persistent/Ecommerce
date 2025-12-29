@@ -33,11 +33,14 @@
       </span>
     </div>
 
-<p class="old-price" *ngIf="product.isOnDiscount ===true ">
-  Rs. {{ product.orignalPrice }}
+<p class="old-price" *ngIf="product.isOnDiscount === true">
+  Rs. {{ product.orignalPrice | number:'1.0-0' }}
 </p>
 
-    <h4 class="price">Rs.{{ product.newPrice }}</h4>
+<h4 class="price">
+  Rs. {{ product.newPrice | number:'1.0-0' }}
+</h4>
+
 
     <button
       class="btn buy-btn w-100"
