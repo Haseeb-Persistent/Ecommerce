@@ -32,10 +32,10 @@ apiUrl = environment.imageBaseApi;
       name: 'Red',
       description:
         '',
-      OrignalPrice: 1200,
+      orignalPrice: 0,
       discountPercentage: 0,
       discountAmount: 0,
-      newPrice: 123,
+      newPrice: 0,
       isOnDiscount: true,
       stockQuantity: 0,
       inStock: true,

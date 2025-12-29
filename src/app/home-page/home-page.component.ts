@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProductResDto } from '../core/Models/catalog';
+import { CatalogService } from '../core/Services/catalog-service.service';
 
 export interface Product {
   id: number;
@@ -12,26 +14,28 @@ export interface Product {
     styleUrls: ['./home-page.component.css'] 
   })
 export class HomePageComponent {
-  
-    products = [
-    '/assets/product-1.jpg',
-    '/assets/product-2.jpg',
-    '/assets/product-3.jpg',
-    '/assets/product-4.jpg',
-    '/assets/product-5.jpg',
-    '/assets/product-6.jpg',
-    '/assets/product-7.jpg',
-    '/assets/product-8.jpg',
-    '/assets/product-9.jpg',
-   '/assets/product-10.jpg'
-  ];
+    constructor(private catalogService: CatalogService) { }
 
-  get groupedProducts() {
-    const chunkSize = 5;
-    const result = [];
-    for (let i = 0; i < this.products.length; i += chunkSize) {
-      result.push(this.products.slice(i, i + chunkSize));
+ products: ProductResDto[] = [];
+ngOnInit() {
+  this.catalogService.getAllProducts().subscribe(res => {
+    if (res.data?.data) {
+      // Filter featured only
+      this.products = res.data.data.filter(p => p.isFeatured);
     }
-    return result;
+  });
+}
+
+    
+
+
+get groupedProducts() {
+  const chunkSize = 5;
+  const result = [];
+  for (let i = 0; i < this.products.length; i += chunkSize) {
+    result.push(this.products.slice(i, i + chunkSize));
   }
+  return result;
+}
+
 }

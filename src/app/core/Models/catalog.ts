@@ -17,7 +17,7 @@ export interface ProductResDto {
     id: number;
     name: string;
     description: string;
-    OrignalPrice: number;
+    orignalPrice: number;
     discountPercentage: number | null;
     discountAmount: number | null;
     newPrice: number;

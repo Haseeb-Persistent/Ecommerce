@@ -1,5 +1,5 @@
 // export const environment = {
-//   baseApi : 'http://localhost:5106/api',
+//   baseApi : 'http://localhost:5106/api/',
 //   imageBaseApi: 'http://localhost:5106'
 // };
 

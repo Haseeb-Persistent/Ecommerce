@@ -50,7 +50,9 @@
   >
     <div class="d-flex justify-content-center gap-5 py-3 flex-wrap">
       <div *ngFor="let product of group" class="product-card">
-        <img [src]="product" class="card-img-top" alt="Product" />
+     <img [src]="product.thumbnail" class="card-img-top" alt="{{product.name}}" />
+     
+
       </div>
     </div>
   </div>

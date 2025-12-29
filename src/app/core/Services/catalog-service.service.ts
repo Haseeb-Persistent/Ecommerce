@@ -23,12 +23,13 @@ getBrands(){
   );
 }
 
-getAllProducts(filter: ProductFilter) {
+getAllProducts(filter?: ProductFilter) {
   return this.http.post<ResponseDto<ProductPaginationRes>>(
     `${environment.baseApi}Catalog/product/getall`,
-    filter
+    filter ?? {}  
   );
 }
+
 
 
 
