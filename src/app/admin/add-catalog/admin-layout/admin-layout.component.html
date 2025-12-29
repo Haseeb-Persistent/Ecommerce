@@ -1,0 +1,37 @@
+
+<div class="container-fluid">
+  <div class="row vh-100">
+    <!-- Sidebar -->
+    <div class="col-md-2 sidebar p-3">
+      <h4 class="sidebar-title mb-4">Add Catalog</h4>
+
+      <ul class="nav flex-column nav-pills sidebar-menu">
+        <li class="nav-item mb-2">
+          <a routerLink="category" routerLinkActive="active" class="nav-link">
+            Category
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a routerLink="brand" routerLinkActive="active" class="nav-link">
+            Brand
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a routerLink="product" routerLinkActive="active" class="nav-link">
+            Product
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-9 p-4 bg-white">
+         <div style="width: 200px;justify-content: end;display: flex;">
+        <button type="submit" routerLink="/products" class="btn btn-danger w-100">Go to Buyer</button>
+         </div>
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+        
+</div>

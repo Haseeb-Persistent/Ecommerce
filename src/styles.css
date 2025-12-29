@@ -40,3 +40,26 @@
   background-color: #c20330;
   color: #fff;
 }
+
+
+.custom-input {
+  border: 2px solid #c20330;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.custom-input:focus {
+  border-color: #c20330;
+  box-shadow: 0 0 0 0.2rem rgba(194, 3, 48, 0.25);
+}
+
+.btn-danger {
+  background-color: #c20330;
+  border-color: #c20330;
+  font-weight: 600;
+}
+
+.btn-danger:hover {
+  background-color: #a10227;
+  border-color: #a10227;
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RatingComponent } from './components/rating/rating.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -10,9 +11,12 @@ import { RatingComponent } from './components/rating/rating.component';
   ],
   imports: [
     CommonModule,
+    RouterModule
   ],
   exports: [
   RatingComponent,
+    RouterModule
+
   ]
 })
 export class SharedModule { }

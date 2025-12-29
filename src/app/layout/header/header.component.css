@@ -19,6 +19,8 @@
   color: #c20330; 
 }
 
+
+
 .dropdown-menu {
   border-radius: 10px;
   padding: 10px 0;
@@ -76,6 +78,10 @@ header{
   color: #fff;
   border-radius: 0 30px 30px 0;
   transition: all 0.3s ease;
+}
+
+li{
+  cursor: pointer;
 }
 
 .search-btn:hover {

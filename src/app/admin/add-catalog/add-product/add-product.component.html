@@ -1,0 +1,62 @@
+<div class="container my-5" style="max-width: 700px;">
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-danger text-white">
+      <h4 class="mb-0">Add Product</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Product Name</label>
+          <input type="text" class="form-control" formControlName="name">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Description</label>
+          <textarea class="form-control" rows="3" formControlName="description"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label fw-semibold">Original Price</label>
+            <input type="number" class="form-control" formControlName="originalPrice">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label fw-semibold">Discount %</label>
+            <input type="number" class="form-control" formControlName="discountPercentage">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label fw-semibold">Stock Quantity</label>
+            <input type="number" class="form-control" formControlName="stockQuantity">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Category</label>
+          <select class="form-select" formControlName="category">
+            <option [ngValue]="null" disabled selected>Select Category</option>
+            <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Brand</label>
+          <select class="form-select" formControlName="brand">
+            <option [ngValue]="null" disabled selected>Select Brand</option>
+            <option *ngFor="let b of brands" [ngValue]="b">{{b.name}}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Product Image</label>
+          <input type="file" class="form-control" (change)="onFileChange($event)">
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100" [disabled]="productForm.invalid">
+          Add Product
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

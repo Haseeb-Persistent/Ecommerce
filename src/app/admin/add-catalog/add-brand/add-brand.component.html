@@ -1,0 +1,23 @@
+<div class="container my-5">
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-danger text-white">
+      <h4 class="mb-0">Add Brand</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="brandForm" (ngSubmit)="submitBrand()">
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Brand Name</label>
+          <input type="text" class="form-control custom-input" formControlName="name">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Brand Image</label>
+          <input type="file" class="form-control custom-input" (change)="onFileChange($event)">
+        </div>
+
+        <button type="submit" class="btn btn-danger w-100">Add Brand</button>
+      </form>
+    </div>
+  </div>
+</div>

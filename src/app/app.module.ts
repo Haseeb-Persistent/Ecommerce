@@ -26,12 +26,13 @@ import { CatalogEffects } from '../redux/Catalog/catalog-effect';
 import { BASE_API, BASE_IMAGE_API } from './core/Token/baseUrlToken';
 import { environment } from './core/enviroment/enviroment';
 import { ApiInterceptor } from './core/interceptor/ApiInterceptor';
+import { AddCatalogModule } from './admin/add-catalog/add-catalog.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HomePageComponent
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,8 +40,11 @@ import { ApiInterceptor } from './core/interceptor/ApiInterceptor';
     LayoutModule,
     ProductsModule,
     SharedModule,
-    FormsModule,
+    AddCatalogModule,
     ReactiveFormsModule,
+    FormsModule,
+      BrowserModule,
+      HttpClientModule,
     HttpClientModule,
     RouterModule,
     StoreModule.forRoot(store),

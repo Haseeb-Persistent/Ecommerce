@@ -5,6 +5,7 @@ import { AppState } from '../redux/Catalog/store';
 import { Store } from '@ngrx/store';
 import { selectCategories } from '../redux/Catalog/catalog-selector';
 import { loadCategories } from '../redux/Catalog/catalog-action';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,10 @@ import { loadCategories } from '../redux/Catalog/catalog-action';
 })
 export class AppComponent implements OnInit{
   title = 'client';
+   showLayout = true;
 
   categories$:Observable<CatagoryResDto[]>;
-  constructor(private store:Store<AppState>){
+  constructor(private store:Store<AppState>,private router: Router){
     this.categories$ = this.store.select(selectCategories);
   }
 
@@ -28,5 +30,15 @@ export class AppComponent implements OnInit{
       })
     )
     .subscribe()
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Hide layout for admin routes
+        if (event.url.includes('/Admin')) {
+          this.showLayout = false;
+        } else {
+          this.showLayout = true;
+        }
+      }
+    });
   }
-}
+  }
