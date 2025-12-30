@@ -1,5 +1,17 @@
 <div class="product-card">
 
+  <!-- Action Icons -->
+  <div class="action-buttons">
+    <button class="icon-btn" title="View">
+      <i class="fa-solid fa-eye"></i>
+    </button>
+
+    <button class="icon-btn" title="Wishlist">
+      <i class="fa-solid fa-heart"></i>
+    </button>
+  </div>
+
+  <!-- Badges -->
   <div class="badge-wrapper" *ngIf="product.isFeatured || product.isOnDiscount">
     <span class="badge-featured" *ngIf="product.isFeatured">Featured</span>
     <span class="badge-discount" *ngIf="product.isOnDiscount">
@@ -7,18 +19,20 @@
     </span>
   </div>
 
-<!-- <img [src]="product.thumbnail?.imageUrl || '/assets/no-image.png'" /> -->
-<img [src]="getImageUrl()" alt="product" class="product-img" />
+  <!-- Image -->
+  <img
+    [src]="getImageUrl()"
+    alt="product"
+    class="product-img"
+  />
 
-
+  <!-- Body -->
   <div class="product-body">
     <h5 class="product-title">{{ product.name }}</h5>
 
-<span class="product-desc" [class.clamp]="!showMore">
-  {{ product.description }}
-</span>
-
-
+    <span class="product-desc clamp">
+      {{ product.description }}
+    </span>
 
     <div class="rating">
       ⭐ {{ product.avearageRating }}
@@ -27,20 +41,20 @@
       </span>
     </div>
 
-<p class="old-price" *ngIf="product.isOnDiscount === true">
-  Rs. {{ product.orignalPrice | number:'1.0-0' }}
-</p>
+    <p class="old-price" *ngIf="product.isOnDiscount">
+      Rs. {{ product.orignalPrice | number:'1.0-0' }}
+    </p>
 
-<h4 class="price">
-  Rs. {{ product.newPrice | number:'1.0-0' }}
-</h4>
-
+    <h4 class="price">
+      Rs. {{ product.newPrice | number:'1.0-0' }}
+    </h4>
 
     <button
-      class="btn buy-btn w-100"
+      class="btn buy-btn w-100 gx-2"
       [disabled]="!product.inStock"
     >
-      {{ product.inStock ? 'Buy Now' : 'Out of Stock' }}
+      {{ product.inStock ? 'Add To Cart' : 'Out of Stock' }}
+      <i class="fa-solid fa-cart-shopping"></i>
     </button>
   </div>
 
