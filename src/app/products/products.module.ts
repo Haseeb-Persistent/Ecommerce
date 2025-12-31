@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductViewComponent } from './product-view/product-view.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     PaginationComponent,
     FilterComponent,
     SortHeaderComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductViewComponent
   ],
   imports: [
     CommonModule,

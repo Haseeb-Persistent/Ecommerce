@@ -30,6 +30,7 @@ import { AddCatalogModule } from './admin/add-catalog/add-catalog.module';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptor } from './loader.interceptor';
 import { WishListComponent } from './wish-list/wish-list.component';
+import { PopupComponent } from './popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { WishListComponent } from './wish-list/wish-list.component';
     HomePageComponent,
     LoaderComponent,
     WishListComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,

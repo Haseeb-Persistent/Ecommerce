@@ -1,10 +1,11 @@
 import { CatalogEffects } from "./Catalog/catalog-effect";
 import { catalogReducer, CatalogState } from "./Catalog/catalog-reducer"
-import { wishlistReducer } from "./Wishlist/wishlist-reducer"
+import { wishlistReducer, WishlistState } from "./Wishlist/wishlist-reducer"
 import { WishlistEffects } from "./Wishlist/wistlish-effect";
 
 export interface AppState {
   catalog:CatalogState
+  wishList:WishlistState
 }
 export const store={
   catalogStore: catalogReducer,

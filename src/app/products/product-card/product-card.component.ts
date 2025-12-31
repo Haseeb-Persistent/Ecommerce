@@ -3,7 +3,9 @@ import { ProductResDto } from '../../core/Models/catalog';
 import { environment } from '../../core/enviroment/enviroment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../redux/store';
-import { removeFromWishlist } from '../../../redux/Wishlist/wishlist-action';
+import { addToWishlist } from '../../../redux/Wishlist/wishlist-action';
+import { WishListItem } from '../../core/Models/WishListItem';
+import { MessageService } from '../../messgae.service';
 
 @Component({
   selector: 'app-product-card',
@@ -11,28 +13,27 @@ import { removeFromWishlist } from '../../../redux/Wishlist/wishlist-action';
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
-  constructor(private store: Store<AppState> ) {}
-  
-@Input() product!:ProductResDto;
-showMore = false;
-apiUrl = environment.imageBaseApi;
+  @Input() product!: ProductResDto;
+  showMore = false;
+  apiUrl = environment.imageBaseApi;
+  wishListItems: WishListItem[] = []; // store subscription
+
+  constructor(private store: Store<AppState>,private popup:MessageService) {
+    // Keep wishlist items updated
+    this.store.select(state => state.wishList.items).subscribe(id => {
+      this.wishListItems = id;
+    });
+  }
 
   getImageUrl(): string {
     if (!this.product?.thumbnail?.imageUrl) {
       return '/assets/no-image.png';
     }
-
-    return (
-      this.apiUrl +
-      '/' +
-      this.product.thumbnail.imageUrl.replace(/\\/g, '/')
-    );
+    return this.apiUrl + '/' + this.product.thumbnail.imageUrl.replace(/\\/g, '/');
   }
 
-
-
-    AddToWishList(productId: number) {
-      this.store.dispatch(removeFromWishlist({ productId }));
-    }
-  products: ProductResDto[] = [];
+  AddToWishList(productId: number) {
+    this.store.dispatch(addToWishlist({ productId }));
+    this.popup.showMessage({ type: 'success', text: 'Product added to wishlist!' });
   }
+}

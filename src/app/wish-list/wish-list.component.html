@@ -17,7 +17,11 @@
         <tbody>
 <tr *ngFor="let item of wishlist" >
   <td class="product-cell">
-  <img [src]="'imageUrl'+item.product.thumbnail?.imageUrl" alt="{{item.product.name}}" width="50">
+    <img
+      [src]="getImageUrl(item.product)"
+      alt="{{ item.product?.name}}"
+      width="50"
+    />
     <div>
       <div class="name">{{ item.product?.name }}</div>
       <small class="category">{{ item.product?.name }}</small>

@@ -51,6 +51,7 @@
 
     <button
       class="btn buy-btn w-100 gx-2"
+      style="cursor: pointer;"
       [disabled]="!product.inStock"
     >
       {{ product.inStock ? 'Add To Cart' : 'Out of Stock' }}

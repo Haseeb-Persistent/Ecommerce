@@ -1,0 +1,3 @@
+ <div *ngIf="message$ | async as msg" class="popup" [ngClass]="msg.type">
+      {{ msg.text }}
+    </div>

@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import { selectCategories } from '../redux/Catalog/catalog-selector';
 import { loadCategories } from '../redux/Catalog/catalog-action';
 import { NavigationEnd, Router } from '@angular/router';
+import { WishListItem } from './core/Models/WishListItem';
+import { selectWishlistItems } from '../redux/Wishlist/wish-selector';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +19,17 @@ export class AppComponent implements OnInit{
    showLayout = true;
 
   categories$:Observable<CatagoryResDto[]>;
+   wishlist$!: Observable<WishListItem[]>; // wishlist$ is an Observable of array
+
   constructor(private store:Store<AppState>,private router: Router){
     this.categories$ = this.store.select(selectCategories);
+      this.wishlist$ = this.store.select(selectWishlistItems);
   }
 
+  
+
   ngOnInit(): void {
+      this.wishlist$ = this.store.select(selectWishlistItems);
     this.categories$.pipe(
       tap((categories)=>{
         if(categories.length===0){
@@ -41,4 +49,6 @@ export class AppComponent implements OnInit{
       }
     });
   }
+     // use this.
+
   }

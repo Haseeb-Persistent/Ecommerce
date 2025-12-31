@@ -1,0 +1,31 @@
+/* popup-message.component.css */
+.popup {
+  position: fixed;
+  top: 120px;           /* distance from bottom */
+  left: 50%;              /* horizontal center */
+  transform: translateX(-50%); /* truly center it horizontally */
+  padding: 12px 20px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 400;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  animation: fadeInOut 3s forwards;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fade in/out animation stays the same */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px) translateX(-50%); }
+  10% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  90% { opacity: 1; transform: translateY(0) translateX(-50%); }
+  100% { opacity: 0; transform: translateY(20px) translateX(-50%); }
+}
+
+.popup.success { background-color: #c20330; }
+.popup.error { background-color: red; }
+.popup.info { background-color: blue; }
+
+

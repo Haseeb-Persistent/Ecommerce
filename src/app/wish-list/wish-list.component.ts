@@ -38,15 +38,15 @@ apiUrl = environment.imageBaseApi;
     console.log('Add to cart', productId);
   }
 
-    getImageUrl(): string {
-    if (!this.product?.thumbnail?.imageUrl) {
+    getImageUrl(product: ProductResDto): string {
+    if (!product?.thumbnail?.imageUrl) {
       return '/assets/no-image.png';
     }
 
     return (
       this.apiUrl +
-      '/' +
-      this.product.thumbnail.imageUrl.replace(/\\/g, '/')
+      '/image/' +
+      product.thumbnail.imageUrl.replace(/\\/g, '/')
     );
   }
 

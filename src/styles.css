@@ -5,6 +5,10 @@
  
 }
 
+.btn{
+  cursor: pointer !important;
+} 
+
 
 h2 {
   font-weight: 600;
