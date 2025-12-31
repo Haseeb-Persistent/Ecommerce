@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ProductResDto } from '../../core/Models/catalog';
 import { environment } from '../../core/enviroment/enviroment';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../redux/store';
+import { removeFromWishlist } from '../../../redux/Wishlist/wishlist-action';
 
 @Component({
   selector: 'app-product-card',
@@ -8,6 +11,7 @@ import { environment } from '../../core/enviroment/enviroment';
   styleUrl: './product-card.component.css'
 })
 export class ProductCardComponent {
+  constructor(private store: Store<AppState> ) {}
   
 @Input() product!:ProductResDto;
 showMore = false;
@@ -25,29 +29,10 @@ apiUrl = environment.imageBaseApi;
     );
   }
 
-  products: ProductResDto[] = [
-    {
-      id: 1,
-      name: 'Red',
-      description:
-        '',
-      orignalPrice: 0,
-      discountPercentage: 0,
-      discountAmount: 0,
-      newPrice: 0,
-      isOnDiscount: true,
-      stockQuantity: 0,
-      inStock: true,
-      avearageRating: 0,
-      totalReviews: 324,
-      isFeatured: true,
-      category: { id: 1, name: 'Mobiles' } as any,
-      brand: { id: 1, name: 'Xiaomi' } as any,
-      thumbnail: {
-     imageUrl: "image/37330c15-ee59-41cb-940b-35d4b7729168.png",
-        id: 2,
-        name: 'dsd'
-      } 
+
+
+    AddToWishList(productId: number) {
+      this.store.dispatch(removeFromWishlist({ productId }));
     }
-  ];
+  products: ProductResDto[] = [];
   }

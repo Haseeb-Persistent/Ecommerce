@@ -7,8 +7,9 @@ export const selectWishlistState =
 
 export const selectWishlistItems = createSelector(
   selectWishlistState,
-  state => state.items
+  state => state.items   // 🔥 ONLY ARRAY
 );
+
 
 export const selectWishlistCount = createSelector(
   selectWishlistItems,
