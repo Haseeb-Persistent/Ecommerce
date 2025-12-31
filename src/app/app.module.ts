@@ -21,7 +21,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 // Interceptors & Injection Tokens
-import { store } from '../redux/Catalog/store';
+import { appEffects, store } from '../redux/store';
 import { CatalogEffects } from '../redux/Catalog/catalog-effect';
 import { BASE_API, BASE_IMAGE_API } from './core/Token/baseUrlToken';
 import { environment } from './core/enviroment/enviroment';
@@ -29,6 +29,7 @@ import { ApiInterceptor } from './core/interceptor/ApiInterceptor';
 import { AddCatalogModule } from './admin/add-catalog/add-catalog.module';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptor } from './loader.interceptor';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LoaderInterceptor } from './loader.interceptor';
     HomeComponent,
     HomePageComponent,
     LoaderComponent,
+    WishListComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,7 @@ import { LoaderInterceptor } from './loader.interceptor';
     HttpClientModule,
     RouterModule,
     StoreModule.forRoot(store),
-    EffectsModule.forRoot([CatalogEffects])
+    EffectsModule.forRoot([...appEffects]),
   ],
   providers: [
     { provide: BASE_API, useValue: environment.baseApi },

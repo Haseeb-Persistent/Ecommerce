@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { CatagoryResDto } from './core/Models/catalog';
-import { AppState } from '../redux/Catalog/store';
+import { AppState } from '../redux/store';
 import { Store } from '@ngrx/store';
 import { selectCategories } from '../redux/Catalog/catalog-selector';
 import { loadCategories } from '../redux/Catalog/catalog-action';
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit{
     this.categories$.pipe(
       tap((categories)=>{
         if(categories.length===0){
-          this.store.dispatch(loadCategories())
+          this.store.dispatch(loadCategories({force: false}));
         }
       })
     )

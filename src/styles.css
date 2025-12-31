@@ -6,6 +6,12 @@
 }
 
 
+h2 {
+  font-weight: 600;
+  font-size: 25px;
+  color: #000000;
+}
+
 .form-check-input {
   width: 20px;
   height: 20px;
@@ -62,4 +68,10 @@
 .btn-danger:hover {
   background-color: #a10227;
   border-color: #a10227;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

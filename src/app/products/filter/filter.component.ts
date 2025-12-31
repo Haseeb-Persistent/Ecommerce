@@ -26,7 +26,7 @@ this.categories$ = this.store.select(selectCategories);
       this.brands$.pipe( 
          tap(brands=> {
            if(brands.length === 0 ) {
-             this.store.dispatch(loadBrands());
+             this.store.dispatch(loadBrands({ force: true }));
          }
         })
       )

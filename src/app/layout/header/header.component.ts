@@ -8,15 +8,11 @@ import { CatalogService } from '../../core/Services/catalog-service.service';
 })
 export class HeaderComponent implements OnInit {
 
-constructor( private CatalogService:CatalogService) { }
 
-Categories:any[]=[];
 
 
   ngOnInit(): void {  
-    this.CatalogService.getCategories().subscribe((result: any) => {
-      this.Categories = result.data;
-    });
+
   }
 
 }

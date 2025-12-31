@@ -1,43 +1,71 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, map, mergeMap, of } from 'rxjs';
+// catalog-effects.ts
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { catchError, map, mergeMap, of, withLatestFrom, filter } from 'rxjs';
 import { CatalogService } from '../../app/core/Services/catalog-service.service';
-import { loadBrands, loadBrandsFailure, loadBrandsSuccess, loadCategories, loadCategoriesFailure, loadCategoriesSuccess } from "./catalog-action";
-
+import {
+  loadBrands,
+  loadBrandsFailure,
+  loadBrandsSuccess,
+  loadCategories,
+  loadCategoriesFailure,
+  loadCategoriesSuccess
+} from './catalog-action';
+import { selectBrands, selectCategories } from './catalog-selector';
 
 @Injectable()
-export class CatalogEffects{
+export class CatalogEffects {
 
-  constructor(private action$:Actions,private catalogService:CatalogService){}
+  constructor(
+    private actions$: Actions,
+    private catalogService: CatalogService,
+    private store: Store
+  ) {}
 
-
-  loadCategories$=createEffect(()=>
-  this.action$.pipe(
-    ofType(loadCategories),
-    mergeMap(()=>
-      this.catalogService.getCategories().pipe(
-        map((res)=>{
-         return res.isSuccessed===true?
-         loadCategoriesSuccess({Categories:res.data?res.data:[]}):
-         loadCategoriesFailure({error:res.message});
-        }),
-        catchError((error)=>of(loadCategoriesFailure({error})))
-      )
-    )
-  )
-  )
-
-      loadBrands$ = createEffect (() =>
-      this.action$.pipe(
-        ofType(loadBrands),
-        mergeMap(()=>
-          this.catalogService.getBrands().pipe(
-            map((res)=> {
-              return res.isSuccessed? loadBrandsSuccess({brands:res.data?res.data:[]}):loadBrandsFailure({error:res.message})
-            }),
-            catchError((error)=> of(loadBrandsFailure({ error })))
+  // ✅ Categories Effect (CACHE ENABLED)
+  loadCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadCategories),
+      withLatestFrom(this.store.select(selectCategories)),
+      filter(([action, categories]) =>
+        action.force || categories.length === 0
+      ),
+      mergeMap(() =>
+        this.catalogService.getCategories().pipe(
+          map(res =>
+            res.isSuccessed
+              ? loadCategoriesSuccess({ Categories: res.data ?? [] })
+              : loadCategoriesFailure({ error: res.message })
+          ),
+          catchError(error =>
+            of(loadCategoriesFailure({ error }))
           )
         )
       )
-  )
- }
+    )
+  );
+
+  // ✅ Brands Effect (CACHE ENABLED)
+  loadBrands$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadBrands),
+      withLatestFrom(this.store.select(selectBrands)),
+      filter(([action, brands]) =>
+        action.force || brands.length === 0
+      ),
+      mergeMap(() =>
+        this.catalogService.getBrands().pipe(
+          map(res =>
+            res.isSuccessed
+              ? loadBrandsSuccess({ brands: res.data ?? [] })
+              : loadBrandsFailure({ error: res.message })
+          ),
+          catchError(error =>
+            of(loadBrandsFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+}
