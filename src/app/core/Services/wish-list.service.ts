@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { WishListItem } from './core/Models/WishListItem';
-import { ResponseDto } from './core/Models/ResponseDto';
+import { WishListItem } from '../Models/WishListItem';
+import { ResponseDto } from '../Models/ResponseDto';
 import { map } from 'rxjs';
 
 @Injectable({

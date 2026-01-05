@@ -14,12 +14,12 @@ import { Router, RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    SharedModule,
+    SharedModule
   ],
   exports: [
     CommonModule,
     HeaderComponent,
     FooterComponent
   ]
-})
+})  
 export class LayoutModule { }

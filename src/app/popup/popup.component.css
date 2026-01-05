@@ -1,9 +1,9 @@
 /* popup-message.component.css */
 .popup {
   position: fixed;
-  top: 120px;           /* distance from bottom */
-  left: 50%;              /* horizontal center */
-  transform: translateX(-50%); /* truly center it horizontally */
+  top: 120px;           
+  left: 50%;              
+  transform: translateX(-50%);
   padding: 12px 20px;
   border-radius: 5px;
   color: #ffffff;

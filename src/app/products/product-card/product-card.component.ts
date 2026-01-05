@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../redux/store';
 import { addToWishlist } from '../../../redux/Wishlist/wishlist-action';
 import { WishListItem } from '../../core/Models/WishListItem';
-import { MessageService } from '../../messgae.service';
+import { MessageService } from '../../core/Services/messgae.service';
 
 @Component({
   selector: 'app-product-card',
@@ -14,6 +14,7 @@ import { MessageService } from '../../messgae.service';
 })
 export class ProductCardComponent {
   @Input() product!: ProductResDto;
+  selectedProduct!:number;
   showMore = false;
   apiUrl = environment.imageBaseApi;
   wishListItems: WishListItem[] = []; // store subscription
@@ -24,6 +25,10 @@ export class ProductCardComponent {
       this.wishListItems = id;
     });
   }
+ViewProduct(id:number){
+   this.selectedProduct = this.product.id
+}
+
 
   getImageUrl(): string {
     if (!this.product?.thumbnail?.imageUrl) {

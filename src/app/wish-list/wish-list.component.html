@@ -2,9 +2,14 @@
   <div class="container">
     <h2 class="wishlist-title">My Wishlist</h2>
 
-    <!-- unwrap wishlist$ observable once -->
-<div class="table-responsive" *ngIf="wishlist$ | async as wishlist; else empty">
-  <table class="wishlist-table" *ngIf="wishlist && wishlist.length">
+
+
+    
+<div *ngIf="wishlist$ | async as wishlist">
+
+  <!-- TABLE -->
+  <div class="table-responsive" *ngIf="wishlist.length > 0; else empty">
+    <table class="wishlist-table">
         <thead>
           <tr>
             <th>Product</th>
@@ -56,14 +61,17 @@
 
         </tbody>
       </table>
+  
+    </div>
     </div>
 
     <!-- empty state -->
-    <ng-template #empty>
+        <ng-template #empty  >
       <div class="empty">
         ❤️ Your wishlist is empty
       </div>
     </ng-template>
-  </div>
+</div>
+
 </section>
 

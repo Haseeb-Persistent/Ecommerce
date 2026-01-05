@@ -2,8 +2,12 @@
 
   <!-- Action Icons -->
   <div class="action-buttons">
-    <button class="icon-btn" title="View">
+    <button  
+     data-bs-target="#productModal"
+    class="icon-btn" title="View">
       <i class="fa-solid fa-eye"></i>
+
+      
     </button>
 
     <button (click)="AddToWishList(product.id)" class="icon-btn" title="Wishlist">
@@ -57,5 +61,49 @@
       {{ product.inStock ? 'Add To Cart' : 'Out of Stock' }}
       <i class="fa-solid fa-cart-shopping"></i>
     </button>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalLabel">{{ product?.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body row">
+        <!-- Product Image -->
+        <div class="col-md-6 text-center">
+          <img [src]="getImageUrl()" class="img-fluid" alt="{{ product?.name }}">
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+          <p *ngIf="product?.inStock" class="text-success fw-bold">IN STOCK</p>
+          <p *ngIf="!product?.inStock" class="text-danger fw-bold">OUT OF STOCK</p>
+
+          <h3 class="text-danger">Rs. {{ product?.newPrice | number }}</h3>
+          <p>{{ product?.description }}</p>
+
+          <div class="d-flex align-items-center mb-3">
+            <button class="btn btn-outline-secondary me-2" (click)="product.stockQuantity= (product.stockQuantity || 1) - 1" [disabled]="product.stockQuantity <= 1">-</button>
+            <input type="number" class="form-control w-25 text-center" [(ngModel)]="product.stockQuantity" min="1">
+            <button class="btn btn-outline-secondary ms-2" (click)="product.stockQuantity = (product.stockQuantity || 1) + 1">+</button>
+          </div>
+
+          <button class="btn btn-danger w-100 mb-2" (click)="AddToWishList(product.id)">
+            <i class="bi bi-bag"></i> ADD TO CART
+          </button>
+          <button class="btn btn-outline-danger w-100" (click)="AddToWishList(product.id)">
+            <i class="bi bi-heart"></i> ADD TO WISHLIST
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>

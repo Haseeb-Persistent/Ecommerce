@@ -10,7 +10,7 @@ import {
   loadWishlistSuccess,
   removeFromWishlist
 } from './wishlist-action';
-import { WishListService } from '../../app/wish-list.service';
+import { WishListService } from '../../app/core/Services/wish-list.service';
 import { selectWishlistItems } from './wish-selector';
 
 @Injectable()

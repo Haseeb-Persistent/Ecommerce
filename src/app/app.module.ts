@@ -27,8 +27,7 @@ import { BASE_API, BASE_IMAGE_API } from './core/Token/baseUrlToken';
 import { environment } from './core/enviroment/enviroment';
 import { ApiInterceptor } from './core/interceptor/ApiInterceptor';
 import { AddCatalogModule } from './admin/add-catalog/add-catalog.module';
-import { LoaderComponent } from './loader/loader.component';
-import { LoaderInterceptor } from './loader.interceptor';
+import { LoaderInterceptor } from './core/Services/loader.interceptor';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { PopupComponent } from './popup/popup.component';
 
@@ -37,7 +36,6 @@ import { PopupComponent } from './popup/popup.component';
     AppComponent,
     HomeComponent,
     HomePageComponent,
-    LoaderComponent,
     WishListComponent,
     PopupComponent,
   ],
@@ -50,8 +48,7 @@ import { PopupComponent } from './popup/popup.component';
     AddCatalogModule,
     ReactiveFormsModule,
     FormsModule,
-      BrowserModule,
-      HttpClientModule,
+    BrowserModule,
     HttpClientModule,
     RouterModule,
     StoreModule.forRoot(store),
