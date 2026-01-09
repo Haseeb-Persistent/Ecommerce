@@ -41,7 +41,7 @@ export class AppComponent implements OnInit{
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Hide layout for admin routes
-        if (event.url.includes('/Admin')) {
+        if (event.url.includes('/Authentication')) {
           this.showLayout = false;
         } else {
           this.showLayout = true;

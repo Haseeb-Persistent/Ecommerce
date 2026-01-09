@@ -7,7 +7,7 @@ export const selectWishlistState =
 
 export const selectWishlistItems = createSelector(
   selectWishlistState,
-  state => state.items   // 🔥 ONLY ARRAY
+  state => state.items  
 );
 
 

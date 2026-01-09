@@ -17,6 +17,7 @@ getCategories(){
     `${environment.baseApi}Catalog/category/getall`
   );
 }
+
 getBrands(){
   return this.http.get<ResponseDto<BrandResDto[]>>(
     `${environment.baseApi}Catalog/brand/getall`

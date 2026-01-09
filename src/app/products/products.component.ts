@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductFilter, ProductResDto } from '../core/Models/catalog';
 import { CatalogService } from '../core/Services/catalog-service.service';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../core/Services/authentication.service';
+import { Route, Router } from '@angular/router';
+import e from 'express';
 
 @Component({
   selector: 'app-products',
@@ -10,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private catalogService: CatalogService) { }
+  constructor(private catalogService: CatalogService,private authService: AuthService,router:Router) { }
 
   products: ProductResDto[] = [];
   count!: number;
@@ -24,9 +27,11 @@ pageSize: number = 10;
     sort: 'featured',
   };
 
-  filter$ = new BehaviorSubject<ProductFilter>(this.initialFilter);
-
+   filter$ = new BehaviorSubject<ProductFilter>(this.initialFilter);
   ngOnInit() {
+
+  
+
     // Subscribe to filter changes
     this.filter$.subscribe((filter) => {
       // Pass the updated filter here, not initialFilter

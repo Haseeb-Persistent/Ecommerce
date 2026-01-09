@@ -1,44 +1,65 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+  <div class="login-card">
 
-<body>
+    <h3 class="login-title">Register</h3>
 
-<div class=" container login-wrapper d-flex align-items-center justify-content-center">
-    <div class="login-card">
+    <form [formGroup]="registerForm" (ngSubmit)="submitLogin()">
 
-        <h3 class="login-title">Resgister</h3>
+      <!-- Username -->
+      <div class="input-group">
+        <input type="text" class="custom-input" formControlName="userName" placeholder=" " />
+        <label>Username</label>
+        <div class="error-text"
+          *ngIf="registerForm.get('userName')?.touched && registerForm.get('userName')?.hasError('required')">
+          Username is required
+        </div>
+      </div>
 
-        <form>
-                    <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-control custom-input" >
-            </div>
+      <!-- Email -->
+      <div class="input-group">
+        <input type="email" class="custom-input" formControlName="email" placeholder=" " />
+        <label>Email</label>
+        <div class="error-text"
+          *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+          Valid email required
+        </div>
+      </div>
 
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control custom-input" >
-            </div>
+      <!-- Password -->
+      <div class="input-group">
+        <input type="password" class="custom-input" formControlName="password" placeholder=" " />
+        <label>Password</label>
+        <div class="error-text"
+          *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required')">
+          Password is required
+        </div>
+        <div class="error-text"
+          *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minlength')">
+          Minimum 6 characters
+        </div>
+      </div>
 
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control custom-input" >
-            </div>
+      <!-- Remember Me -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="remember" id="remember" />
+          <label class="form-check-label" for="remember">Remember me</label>
+        </div>
+        <a href="#" class="login-link">Forgot?</a>
+      </div>
 
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox">
-                    <label class="form-check-label">Remember me</label>
-                </div>
-                <a href="#" class="login-link">Forgot?</a>
-            </div>
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-login w-100" >
+        Create Account
+      </button>
 
-            <button type="submit" class="btn btn-login w-100">Resgister</button>
+      <!-- Redirect -->
+      <p class="text-center mt-4 mb-0">
+        Already have an account? 
+        <a href="#" class="login-link fw-semibold" routerLink="../login">Login</a>
+      </p>
 
-            <p class="text-center mt-4 mb-0">
-                Don’t have an account?
-                <a href="#" class="login-link fw-semibold" routerLink="../login" >Sign up</a>
-            </p>
-        </form>
+    </form>
 
-    </div>
+  </div>
 </div>
-
-</body>

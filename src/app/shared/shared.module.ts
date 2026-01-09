@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RatingComponent } from './components/rating/rating.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { RatingComponent } from './components/rating/rating.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { AuthenticationModule } from '../authentication/authentication.module';
-
-
 
 @NgModule({
   declarations: [
@@ -15,17 +14,19 @@ import { AuthenticationModule } from '../authentication/authentication.module';
   imports: [
     CommonModule,
     RouterModule,
-    AuthenticationModule
-
-    
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
-  RatingComponent,
-    RouterModule,
+    // components
+    RatingComponent,
     LoaderComponent,
-    AuthenticationModule
-    
 
+    // angular modules
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

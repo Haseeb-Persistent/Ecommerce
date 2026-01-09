@@ -1,20 +1,17 @@
-/* body{
-     background-color: #f1f4fa;
-     height: 100vh;
-
-} */
- *{
-    overflow: hidden;
- }
+body {
+  overflow: hidden;
+}
 
       .login-wrapper{
-        height: 80vh;
+        height: 100vh;
+        background-color: #f1f4fa;
       }
 
         .form-label{
             font-weight: 600;
             font-size: 15px;
             color: #000000;
+            margin-bottom: 1px !important;
         }
 
         
@@ -24,7 +21,7 @@
             border-radius: 16px;
             padding: 40px;
             max-width: 420px;
-            border: 1px solid #ccc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
         }
 
@@ -33,51 +30,116 @@
             font-weight: 800;
             text-align: center;
             margin-bottom: 30px;
-
         }
 
-        /* Custom Input */
-        .custom-input {
-  box-sizing: border-box;
-    margin: 0;
-    display: inline-block;
-    width: 100%;
-    min-width: 0;
-    padding: 9px 11px;
-    color: #000000d9;
-    font-size: 14px;
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
-    border-radius: 3px !important;
-    transition: all .3s;
-        }
 
-        .custom-input:focus {
-           border-color: #c30d38;
-    box-shadow: 0 0 3px #c30d38;
-        }
+/* Wrapper */
+.login-wrapper {
+  height: 100vh;
+  background-color: #f1f4fa;
+}
 
-        /* Login Button */
-        .btn-login {
-            background-color: #c20330;
-            color: #ffffff;
-            padding: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+/* Card */
+.login-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        .btn-login:hover {
-            background-color: #9f0228;
-            transform: translateY(-1px);
-        }
+/* Title */
+.login-title {
+  color: #c20330;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-        /* Links */
-        .login-link {
-            color: #c20330;
-            text-decoration: none;
-            font-size: 14px;
-        }
+/* Input group */
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
 
-        .login-link:hover {
-            text-decoration: underline;
-        }
+/* Input field */
+.custom-input {
+  width: 100%;
+  padding: 14px 12px;
+  font-size: 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.25s ease;
+  background: transparent;
+}
+
+/* Label */
+.input-group label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: #6b7280;          /* visible */
+  background: #ffffff;
+  padding: 0 6px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+/* Floating effect */
+.custom-input:focus + label,
+.custom-input:not(:placeholder-shown) + label {
+  top: -7px;
+  font-size: 11px;
+  color: #c20330;
+  font-weight: 600;
+}
+
+/* Focus border */
+.custom-input:focus {
+  border-color: #c30d38;
+}
+
+/* Validation borders */
+.custom-input.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+.custom-input.ng-valid.ng-touched {
+  border-color: #198754;
+}
+
+/* Error text */
+.error-text {
+  font-size: 12px;
+  color: #dc3545;
+  margin-top: 4px;
+}
+
+/* Button */
+.btn-login {
+  background-color: #c20330;
+  color: #ffffff;
+  padding: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #9f0228;
+  transform: translateY(-1px);
+}
+
+/* Links */
+.login-link {
+  color: #c20330;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}

@@ -1,4 +1,10 @@
-<div class="container">
+
+
+
+
+
+<ng-container >
+<div  class="container">
     <div class="row">
         <div class="col-3">
             <app-filter (filterChanged)="onFilterChanged($event)"[minPrice]="minPrice" [maxPrice]="maxPrice"></app-filter>
@@ -13,3 +19,6 @@
         </div>
     </div>
 </div>      
+</ng-container>
+
+

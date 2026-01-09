@@ -1,66 +1,69 @@
+/* ===== HERO SECTION ===== */
+.promo-img {
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.promo-img:hover {
+  transform: scale(1.03);
+}
+
+.main-slider {
+  height: 365px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* ===== FEATURED PRODUCTS ===== */
+.product-head h2 {
+  font-weight: 700;
+  color: #222;
+}
+
 .product-card {
-  position: relative;
-  border: 3px solid transparent;
-  border-radius: 25px;
-  width: 200px;
-  border: solid 3px #c94e15;
-  padding: 25px;
-  overflow: hidden;
-  transition: all 0.4s ease;
+  width: 210px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
   cursor: pointer;
 }
-.product-head{
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 20px 0;
-   display: inline;
-}
-
-.product-head > h2{
-  font-weight: 600;
-  font-size: 28px;
-  color: #000000;
-}
-
-
 
 .product-card img {
   width: 100%;
-  height: 180px;
+  height: 170px;
   object-fit: contain;
-  transition: transform 0.4s ease;
 }
 
-/* 🔥 Fancy inner-glow hover (like YouTube new UI hover effect) */
-.product-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(145deg, #c94e15, #ff9650);
-  opacity: 0;
-  border-radius: inherit;
-  transition: opacity 0.4s ease;
-  z-index: 0;
+.product-card h6 {
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: 600;
 }
 
-/* On hover – soft glow + zoom */
+.product-card .price {
+  color: #c20330;
+  font-weight: 700;
+}
+
 .product-card:hover {
-  transform: translateY(-6px) scale(1.03);
-  border-color: #c94e15;
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.2);
 }
 
-.product-card:hover::before {
-  opacity: 0.15; /* Inner glow effect */
-}
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .promo-img {
+    height: 150px;
+  }
 
-.product-card:hover img {
-  transform: scale(1.05);
-}
-
-/* Keep image above pseudo element */
-.product-card img {
-  position: relative;
-  z-index: 1;
+  .main-slider {
+    height: 280px;
+  }
 }
