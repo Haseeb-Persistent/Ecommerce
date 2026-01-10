@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { loadWishlist } from '../../../redux/Wishlist/wishlist-action';
 import { AuthService } from '../../core/Services/authentication.service';
 import { Router } from '@angular/router';
+import { loadCart } from '../../../redux/Cart/cart-action';
+import { selectCartCount, selectCartItems } from '../../../redux/Cart/cart-selector';
+import { CartItem } from '../../core/Models/Cart';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +19,18 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 isLoggedIn = false;
+username: string | null = localStorage.getItem('userName');
 
   wishlist$!: Observable<WishListItem[]>; 
+  Cart$!: Observable<CartItem[]>; 
   constructor(private store: Store<AppState>,public authService:AuthService,private router:Router) { }
   ngOnInit(): void {
      this.isLoggedIn = this.authService.isLoggedIn();
         this.store.dispatch(loadWishlist({ force: true }));
     this.wishlist$ = this.store.select(selectWishlistItems);
-    
+        this.store.dispatch(loadCart({ force: true }));
+    this.Cart$ = this.store.select(selectCartItems);
+    this.username = localStorage.getItem('username');
   }
 
   logOut() {

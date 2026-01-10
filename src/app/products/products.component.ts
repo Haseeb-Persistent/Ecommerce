@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   constructor(private catalogService: CatalogService,private authService: AuthService,router:Router) { }
 
   products: ProductResDto[] = [];
+  IsUserLoggedIn = this.authService.isLoggedIn();
   count!: number;
   minPrice!: number;
   maxPrice!: number;
@@ -30,11 +31,11 @@ pageSize: number = 10;
    filter$ = new BehaviorSubject<ProductFilter>(this.initialFilter);
   ngOnInit() {
 
-  
+      this.IsUserLoggedIn = this.authService.isLoggedIn();
 
-    // Subscribe to filter changes
+
+  
     this.filter$.subscribe((filter) => {
-      // Pass the updated filter here, not initialFilter
       this.catalogService.getAllProducts(filter).subscribe(res => {
         if (res.data?.data) {
           this.products = res.data.data;

@@ -4,17 +4,13 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddBrandComponent } from './add-brand/add-brand.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { AdminGuard } from '../../core/guard/admin.guard';
 
 const routes: Routes = [
-  // { path: 'category', component: AddCategoryComponent },
-  // { path: 'brand', component: AddBrandComponent },
-  // { path: 'product', component: AddProductComponent },
-  // { path: 'layout-admin', component: AdminLayoutComponent }, 
-  // { path: '', redirectTo: 'layout-admin', pathMatch: 'full' } 
-
   {
-    path: '', // admin root
+    path: '',
     component: AdminLayoutComponent,
+    canActivate: [AdminGuard], // 🔐 admin only
     children: [
       { path: 'category', component: AddCategoryComponent },
       { path: 'brand', component: AddBrandComponent },
@@ -28,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AddCatalogRoutingModule { }
+export class AddCatalogRoutingModule {}

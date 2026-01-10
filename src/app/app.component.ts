@@ -8,6 +8,8 @@ import { loadCategories } from '../redux/Catalog/catalog-action';
 import { NavigationEnd, Router } from '@angular/router';
 import { WishListItem } from './core/Models/WishListItem';
 import { selectWishlistItems } from '../redux/Wishlist/wish-selector';
+import { MessageService } from './core/Services/messgae.service';
+import { AuthService } from './core/Services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit{
   categories$:Observable<CatagoryResDto[]>;
    wishlist$!: Observable<WishListItem[]>; // wishlist$ is an Observable of array
 
-  constructor(private store:Store<AppState>,private router: Router){
+  constructor(private store:Store<AppState>,private router: Router,private pop:MessageService,private auth:AuthService){
     this.categories$ = this.store.select(selectCategories);
       this.wishlist$ = this.store.select(selectWishlistItems);
   }
@@ -29,6 +31,9 @@ export class AppComponent implements OnInit{
   
 
   ngOnInit(): void {
+
+    this.auth.refreshUser().subscribe()
+
       this.wishlist$ = this.store.select(selectWishlistItems);
     this.categories$.pipe(
       tap((categories)=>{
@@ -41,7 +46,7 @@ export class AppComponent implements OnInit{
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Hide layout for admin routes
-        if (event.url.includes('/Authentication')) {
+        if (event.url.includes('/Authentication') || event.url.includes('/Admin')) {
           this.showLayout = false;
         } else {
           this.showLayout = true;

@@ -53,15 +53,15 @@
       Rs. {{ product.newPrice | number:'1.0-0' }}
     </h4>
 
-    <button
-      class="btn buy-btn w-100 gx-2"
-      style="cursor: pointer;"
-      [disabled]="!product.inStock"
-    >
-      {{ product.inStock ? 'Add To Cart' : 'Out of Stock' }}
-      <i class="fa-solid fa-cart-shopping"></i>
-    </button>
-  </div>
+<button
+  (click)="AddToCart(product.id)"
+  class="btn buy-btn w-100 gx-2"
+  [disabled]="!product.inStock || isAdmin"
+>
+  {{ isAdmin ? 'Admin cannot buy' : (product.inStock ? 'Add To Cart' : 'Out of Stock') }}
+  <i class="fa-solid fa-cart-shopping"></i>
+</button>
+  </div>  
 </div>
 
 
@@ -95,9 +95,10 @@
             <button class="btn btn-outline-secondary ms-2" (click)="product.stockQuantity = (product.stockQuantity || 1) + 1">+</button>
           </div>
 
-          <button class="btn btn-danger w-100 mb-2" (click)="AddToWishList(product.id)">
-            <i class="bi bi-bag"></i> ADD TO CART
-          </button>
+
+
+
+ 
           <button class="btn btn-outline-danger w-100" (click)="AddToWishList(product.id)">
             <i class="bi bi-heart"></i> ADD TO WISHLIST
           </button>

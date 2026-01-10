@@ -1,0 +1,89 @@
+<section class="wishlist-section mt-5 mb-5">
+  <div class="container">
+    <h2 class="wishlist-title">My Cart</h2>
+
+    <ng-container *ngIf="CartItem$ | async as cartItems; else loading">
+
+      <!-- EMPTY -->
+      <div *ngIf="cartItems.length === 0" class="empty">
+        🛒 Your cart is empty
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-responsive" *ngIf="cartItems.length > 0">
+        <table class="wishlist-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of cartItems">
+              <!-- PRODUCT -->
+              <td class="product-cell">
+                <img
+                  [src]="getImageUrl(item.product)"
+                  alt="{{ item.product?.name }}"
+                  width="50"
+                />
+                <div>
+                  <div class="name">{{ item.product?.name }}</div>
+                  <small class="category">{{ item.product?.category }}</small>
+                </div>
+              </td>
+
+              <!-- PRICE -->
+              <td class="price">
+                <span class="new">
+                  {{ item.product?.newPrice | currency:'PKR' }}
+                </span>
+                <span class="old" *ngIf="item.product?.isOnDiscount">
+                  {{ item.product?.orignalPrice | currency:'PKR' }}
+                </span>
+              </td>
+
+              <!-- STOCK -->
+              <td>
+                <span
+                  class="stock"
+                  [class.in]="item.product?.inStock"
+                  [class.out]="!item.product?.inStock"
+                >
+                  {{ item.product?.inStock ? 'In Stock' : 'Out of Stock' }}
+                </span>
+              </td>
+
+              <!-- ACTIONS -->
+              <td class="actions">
+                <button
+                  class="btn-cart"
+                  [disabled]="!item.product?.inStock"
+                  (click)="CheckOut(item.productId)"
+                >
+                  Checkout
+                </button>
+
+                <button
+                  class="btn-remove"
+                  (click)="remove(item.productId)"
+                >
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </ng-container>
+
+    <ng-template #loading>
+      <p>Loading cart...</p>
+    </ng-template>
+
+  </div>
+</section>

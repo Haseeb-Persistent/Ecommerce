@@ -26,38 +26,50 @@ export class LoginComponent {
     });
   }
 
-  submitLogin = async () => {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
+submitLogin = async () => {
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
+  }
 
-    const loginData = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-    };
+  const loginData = {
+    email: this.loginForm.value.email,
+    password: this.loginForm.value.password,
+  };
 
-    try {
-      const response = await firstValueFrom(this.authService.login(loginData));
-      if (response.isSuccessed) {
-        this.messageService.showMessage({
-          type: 'success',
-          text: response.message,
-        });
+  try {
+    const response = await firstValueFrom(
+      this.authService.login(loginData)
+    );
 
-        // ✅ redirect to child route of HomeComponent
+    if (response?.isSuccessed && response.data) {
+      this.messageService.showMessage({
+        type: 'success',
+        text: response.message,
+      });
+
+      // 🔥 ROLE-BASED REDIRECT
+      const role = response.data.role;
+
+      if (role === 'ADMIN') {
+        this.router.navigate(['/Admin']);
+      } else if (role === 'USER') {
         this.router.navigate(['/dashboard']);
-      } else {
-        this.messageService.showMessage({
-          type: 'error',
-          text: response.message,
-        });
       }
-    } catch (err: any) {
+
+    } else {
       this.messageService.showMessage({
         type: 'error',
-        text: err?.error?.message || 'Something went wrong',
+        text: response?.message || 'Login failed',
       });
     }
-  };
+
+  } catch (err: any) {
+    this.messageService.showMessage({
+      type: 'error',
+      text: err?.error?.message || 'No internet connection',
+    });
+  }
+};
+
 }

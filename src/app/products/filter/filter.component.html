@@ -74,29 +74,40 @@
 
                   </div>
               </div>
-                    <div class="card mb-3"  >
-                  <div class="card-header border-bottom bg-white align-item-center d-flex" >
-                     <h5 style="font-weight: 600;font-size: 16px;">
-                         Price
-                     </h5>
-                  </div>
-                  <div class="card-body">
-<div id="price-range" >
-  <input type="range" class="form-range"
-         [min]="minPrice" [max]="maxPrice"
-         [(ngModel)]="selectedMinPrice" 
-         (input)="onMinPriceChange()">
+                 <div class="card mb-3">
+  <div class="card-header border-bottom bg-white d-flex align-items-center">
+    <h5 style="font-weight:600;font-size:16px;">Price</h5>
+  </div>
 
-  <input type="range" class="form-range"
-         [min]="minPrice" [max]="maxPrice"
-         [(ngModel)]="selectedMaxPrice"
-         (input)="onMaxPriceChange()">
+  <div class="card-body">
+    <div class="row g-2 d-flex align-items-center">
+      <div class="col-4">
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Min Price"
+          [(ngModel)]="selectedMinPrice">
+      </div>
+
+      <div class="col-4">
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Max Price"
+          [(ngModel)]="selectedMaxPrice">
+      </div>
+      <div class="col-2">
+<button
+      class="btn btn-danger btn-sm w-100"
+      (click)="updatePrice()">
+      >
+    </button>
+      </div>
+      
+    </div>
+  </div>
 </div>
-   <small>Price : {{ selectedMaxPrice||maxPrice | currency:'PKR'}} - {{selectedMinPrice||minPrice | currency:'PKR'}}</small>
 
-  <!-- <button class="btn btn-primary btn-sm d-block mt-3" (click)="reset()">reset</button>  -->
-                  </div>
-              </div>
                     <div class="card" style="overflow-y: scroll;max-height: 100%;" >
                   <div class="card-header border-bottom bg-white align-item-center d-flex" >
                      <h5 style="font-weight: 600;font-size: 16px;">

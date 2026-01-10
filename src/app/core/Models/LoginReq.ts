@@ -7,6 +7,8 @@ export interface LoginReq {
 export interface LoginResData {
     accessToken: string;
     refreshToken: string;
-    userData: object;
+    role: string;
+    username: string;
+    userId?: number | undefined;
 
 }

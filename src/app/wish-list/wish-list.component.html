@@ -50,7 +50,7 @@
 
   <!-- ACTIONS -->
   <td class="actions">
-    <button class="btn-cart" [disabled]="!item.product?.inStock" (click)="addToCart(item.productId)">
+    <button class="btn-cart" [disabled]="!item.product?.inStock" (click)="AddtoCart(item.productId)">
       Add to Cart
     </button>
     <button class="btn-remove" (click)="remove(item.productId)">

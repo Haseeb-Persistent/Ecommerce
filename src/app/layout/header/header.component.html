@@ -25,12 +25,10 @@
         </div>
       </div>
 
-      <!-- ❤️ 🛒 Icons -->
    <div class="col-3">
   <div class="icons d-flex justify-content-end align-items-center gap-4">
-    
-    <!-- ❤️ Wishlist Icon -->
- <div class="icon-item">
+    <ng-container *ngIf="authService.isLoggedIn()" >
+ <div class="icon-item" >
   <a routerLink="/WishList">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
          class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -44,42 +42,78 @@
     </span>
   </a>
 </div>
-
-
-    <!-- 🛒 Bag/Cart Icon -->
-    <!-- <div class="icon-item">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+    <div class="icon-item">
+      <a routerLink="/Cart" >
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
         class="bi bi-bag-check-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd"
           d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
       </svg>
-    </div> -->
+         <span class="wishlist-count" *ngIf="(Cart$ | async)?.length as count">
+      {{ count }}
+    </span>
+      <!-- Badge showing count -->
+      </a>
+    
+    </div>
+    </ng-container>
 
-    <!-- 👤 Account Icon -->
 
+
+
+
+<div class="auth-area d-flex align-items-center gap-3">
+
+  <!-- Not Logged In -->
   <ng-container *ngIf="!authService.isLoggedIn()">
- <div
-  class="account-btn d-flex align-items-center gap-2"
-  routerLink="/Authentication/login"
->
-  Login
-</div>
+    <div class="account-btn" routerLink="/Authentication/login">
+      Login
+    </div>
 
-<div
-  class="account-btn d-flex align-items-center"
-  routerLink="/Authentication/register"
->
-  Register
-</div>
+    <div class="account-btn" routerLink="/Authentication/register">
+      Register
+    </div>
   </ng-container>
 
+  <!-- Logged In -->
   <ng-container *ngIf="authService.isLoggedIn()">
-<button class="logout-btn" (click)="logOut()">
-  <span>Logout</span>
-  <i class="bi bi-box-arrow-right"></i>
-</button>
+    <div class="user-menu dropdown">
+      <button
+        class="user-btn dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-user"></i>
+        <span class="username">{{ username }}</span>
+      </button>
 
+      <ul class="dropdown-menu dropdown-menu-end shadow">
+        <li>
+          <a class="dropdown-item" routerLink="/dashboard">
+            <i class="fa-solid fa-gauge me-2"></i> Dashboard
+          </a>
+        </li>
+
+        <li>
+          <a class="dropdown-item" routerLink="/profile">
+            <i class="fa-solid fa-user-gear me-2"></i> Profile
+          </a>
+        </li>
+
+        <li><hr class="dropdown-divider" /></li>
+
+        <li>
+          <button class="dropdown-item-log border-0" (click)="logOut()">
+            <i class="fa-solid fa-right-from-bracket me-2"></i> 
+            Logout
+          </button>
+        </li>
+      </ul>
+    </div>
   </ng-container>
+
+</div>
+
   </div>
 </div>
     </div>

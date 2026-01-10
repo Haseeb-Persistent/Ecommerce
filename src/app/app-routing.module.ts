@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { WishListComponent } from './wish-list/wish-list.component';
+import { authGuard } from './core/guard/auth.guard';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {
@@ -12,6 +14,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: HomePageComponent },
       { path: 'WishList', component: WishListComponent },
+      { path: 'Cart', component: CartComponent },
       {
         path: 'products',
         loadChildren: () =>
@@ -19,6 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'Admin',
+         canActivateChild: [authGuard],
         loadChildren: () =>
           import('./admin/add-catalog/add-catalog.module').then(
             (m) => m.AddCatalogModule

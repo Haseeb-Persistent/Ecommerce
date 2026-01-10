@@ -1,4 +1,4 @@
-// wishlist-effects.ts
+// cart-effects.ts
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -14,53 +14,53 @@ import {
 } from 'rxjs';
 
 import {
-  addToWishlist,
-  loadWishlist,
-  loadWishlistFailure,
-  loadWishlistSuccess,
-  removeFromWishlist
-} from './wishlist-action';
+  addToCart,
+  loadCart,
+  loadCartFailure,
+  loadCartSuccess,
+  removeFromCart
+} from './cart-action';
 
-import { WishListService } from '../../app/core/Services/wish-list.service';
-import { selectWishlistItems } from './wish-selector';
+import { CartService } from '../../app/core/Services/cart.service';
+import { selectCartItems } from './cart-selector';
+import { CartItem } from '../../app/core/Models/Cart';
 import { MessageService } from '../../app/core/Services/messgae.service';
-import { WishListItem } from '../../app/core/Models/WishListItem';
 
 @Injectable()
-export class WishlistEffects {
+export class CartEffects {
 
   constructor(
     private actions$: Actions,
-    private wishlistService: WishListService,
+    private cartService: CartService,
     private store: Store,
     private message: MessageService
   ) {}
 
-  // ✅ LOAD WISHLIST (with cache)
+  // ✅ LOAD CART (with cache)
   load$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadWishlist),
-      withLatestFrom(this.store.select(selectWishlistItems)),
+      ofType(loadCart),
+      withLatestFrom(this.store.select(selectCartItems)),
       filter(([action, items]) => action.force || items.length === 0),
       mergeMap(() =>
-        from(this.wishlistService.getWishList()).pipe(
-          map((items: WishListItem[]) =>
-            loadWishlistSuccess({ items })
+        from(this.cartService.getCart()).pipe(
+          map((items: CartItem[]) =>
+            loadCartSuccess({ items })
           ),
           catchError(error =>
-            of(loadWishlistFailure({ error }))
+            of(loadCartFailure({ error }))
           )
         )
       )
     )
   );
 
-  // ✅ ADD TO WISHLIST + POPUP
+  // ✅ ADD TO CART + POPUP
   add$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addToWishlist),
+      ofType(addToCart),
       mergeMap(({ productId }) =>
-        from(this.wishlistService.addToWishList(productId)).pipe(
+        from(this.cartService.addToCart(productId)).pipe(
           tap(res => {
             if (!res) return;
             this.message.showMessage({
@@ -68,25 +68,25 @@ export class WishlistEffects {
               text: res.message
             });
           }),
-          map(() => loadWishlist({ force: true })),
+          map(() => loadCart({ force: true })),
           catchError(err => {
             this.message.showMessage({
               type: 'error',
-              text: err?.error?.message || 'Add failed'
+              text: err?.error?.message || 'Something went wrong'
             });
-            return of(loadWishlistFailure({ error: err }));
+            return of(loadCartFailure({ error: err }));
           })
         )
       )
     )
   );
 
-  // ✅ REMOVE FROM WISHLIST + POPUP
+  // ✅ REMOVE FROM CART + POPUP
   remove$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(removeFromWishlist),
+      ofType(removeFromCart),
       mergeMap(({ productId }) =>
-        from(this.wishlistService.removeFromWishList(productId)).pipe(
+        from(this.cartService.removeFromCart(productId)).pipe(
           tap(res => {
             if (!res) return;
             this.message.showMessage({
@@ -94,13 +94,13 @@ export class WishlistEffects {
               text: res.message
             });
           }),
-          map(() => loadWishlist({ force: true })),
+          map(() => loadCart({ force: true })),
           catchError(err => {
             this.message.showMessage({
               type: 'error',
               text: err?.error?.message || 'Remove failed'
             });
-            return of(loadWishlistFailure({ error: err }));
+            return of(loadCartFailure({ error: err }));
           })
         )
       )

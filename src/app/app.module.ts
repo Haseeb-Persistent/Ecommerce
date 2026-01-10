@@ -33,6 +33,7 @@ import { PopupComponent } from './shared/components/popup/popup.component';
 import { appInitializer } from './helper/app-initializer';
 import { AuthService } from './core/Services/authentication.service';
 import { AuthInterceptor } from './core/interceptor/auth-interceptor';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AuthInterceptor } from './core/interceptor/auth-interceptor';
     HomePageComponent,  
     WishListComponent,
     PopupComponent,
+    CartComponent,
     
   ],
   imports: [

@@ -1,42 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { WishListItem } from '../Models/WishListItem';
 import { ResponseDto } from '../Models/ResponseDto';
 import { map } from 'rxjs';
 import { AuthService } from './authentication.service';
+import { CartItem } from '../Models/Cart';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WishListService {
+export class CartService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  getWishList() {
+  getCart() {
     const userId = this.getCurrentUserId();
     if (!userId) throw new Error('User not logged in');
 
-    return this.http.get<{ wishListItems: WishListItem[] }>(`WishList/${userId}`)
+    return this.http.get<{ cartItems: CartItem[] }>(`Cart/${userId}`)
       .pipe(
-        map(res => res.wishListItems)
+        map(res => res.cartItems)
       );
   }
 
-  addToWishList(productId: number) {
+  addToCart(productId: number) {
     const userId = this.getCurrentUserId();
     if (!userId) throw new Error('User not logged in');
-    return this.http.post<ResponseDto<null>>('WishList/Add', { userId, productId });
+
+    return this.http.post<ResponseDto<null>>('Cart/Add', { userId, productId });
   }
 
-  removeFromWishList(productId: number) {
+  removeFromCart(productId: number) {
     const userId = this.getCurrentUserId();
     if (!userId) throw new Error('User not logged in');
 
-    return this.http.delete<ResponseDto<null>>(`WishList/Remove/${userId}/${productId}`);
+    return this.http.delete<ResponseDto<null>>(`Cart/Remove/${userId}/${productId}`);
   }
 
   private getCurrentUserId(): number | null {
     const id = localStorage.getItem('userId');
-    return id ? parseInt(id, 10) : null;
-  }
+    return id ? parseInt(id, 10) : null;}
 }

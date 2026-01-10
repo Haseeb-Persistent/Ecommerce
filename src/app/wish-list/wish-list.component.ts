@@ -1,5 +1,5 @@
 // wish-list.component.ts
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadWishlist, removeFromWishlist } from '../../redux/Wishlist/wishlist-action';
@@ -9,6 +9,7 @@ import { BASE_IMAGE_API } from '../core/Token/baseUrlToken';
 import { AppState } from '../../redux/store';
 import { ProductResDto } from '../core/Models/catalog';
 import { environment } from '../core/enviroment/enviroment';
+import { ProductCardComponent } from '../products/product-card/product-card.component';
 
 @Component({
   selector: 'app-wish-list',
@@ -16,6 +17,8 @@ import { environment } from '../core/enviroment/enviroment';
   styleUrl: './wish-list.component.css'
 })
 export class WishListComponent implements OnInit {
+    @ViewChild(ProductCardComponent) Addcart!: ProductCardComponent;
+
   wishlist$ = this.store.select(selectWishlistItems);
  product!:ProductResDto;
 apiUrl = environment.imageBaseApi;
@@ -29,14 +32,16 @@ apiUrl = environment.imageBaseApi;
     this.store.dispatch(loadWishlist({ force: true }));
     
   }
+  
 
+  AddtoCart(productId: number) {
+      this.Addcart.AddToCart(productId);
+  }
   remove(productId: number) {
     this.store.dispatch(removeFromWishlist({ productId }));
   }
 
-  addToCart(productId: number) {
-    console.log('Add to cart', productId);
-  }
+
 
     getImageUrl(product: ProductResDto): string {
     if (!product?.thumbnail?.imageUrl) {

@@ -57,20 +57,7 @@ rating = [
    {value:1,selected:false},    
 ]
 
-onMinPriceChange() {
-  if (this.selectedMinPrice > this.selectedMaxPrice) {
-    this.selectedMinPrice = this.selectedMaxPrice;
-  }
-  this.applyFilters();
-}
 
-onMaxPriceChange() {
-  if (this.selectedMaxPrice < this.selectedMinPrice) {
-    this.selectedMaxPrice = this.selectedMinPrice;
-  }
-  this.applyFilters();
-  
-}
   
 toggleRating(ratingValue: number) {
    const index = this.selectedRating.indexOf(ratingValue);
@@ -106,6 +93,27 @@ toggleStockType(value: boolean) {
   this.selectedStockType = value;
   this.applyFilters();
 } 
+updatePrice() {
+  // null / empty safety
+  if (this.selectedMinPrice == null) {
+    this.selectedMinPrice = this.minPrice;
+  }
+
+  if (this.selectedMaxPrice == null) {
+    this.selectedMaxPrice = this.maxPrice;
+  }
+
+  // logic fix
+  if (this.selectedMinPrice > this.selectedMaxPrice) {
+    const temp = this.selectedMinPrice;
+    this.selectedMinPrice = this.selectedMaxPrice;
+    this.selectedMaxPrice = temp;
+  }
+
+  this.applyFilters();
+   this.selectedMaxPrice= null as any;
+ this.selectedMinPrice= null as any;
+}
 
 applyFilters() {
   const selectedFilters = {  

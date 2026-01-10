@@ -25,7 +25,7 @@
 }
 
 .popup.success { background-color: #c20330; }
-.popup.error { background-color: red; }
+.popup.error { background-color: #ec053b; }
 .popup.info { background-color: blue; }
 
 
