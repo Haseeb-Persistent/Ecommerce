@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
   categories$:Observable<CatagoryResDto[]>;
    wishlist$!: Observable<WishListItem[]>; // wishlist$ is an Observable of array
 
-  constructor(private store:Store<AppState>,private router: Router,private pop:MessageService,private auth:AuthService){
+  constructor(private store:Store<AppState>,private router: Router,private pop:MessageService){
     this.categories$ = this.store.select(selectCategories);
       this.wishlist$ = this.store.select(selectWishlistItems);
   }
@@ -32,7 +32,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.auth.refreshUser().subscribe()
 
       this.wishlist$ = this.store.select(selectWishlistItems);
     this.categories$.pipe(
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit{
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Hide layout for admin routes
-        if (event.url.includes('/Authentication') || event.url.includes('/Admin')) {
+        if (event.url.includes('/Authentication') ) {
           this.showLayout = false;
         } else {
           this.showLayout = true;
