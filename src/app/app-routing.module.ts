@@ -22,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'Admin',
-        //  canActivateChild: [authGuard],
+         canActivateChild: [authGuard],
         loadChildren: () =>
           import('./admin/add-catalog/add-catalog.module').then(
             (m) => m.AddCatalogModule

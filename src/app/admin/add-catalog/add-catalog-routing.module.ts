@@ -4,12 +4,13 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddBrandComponent } from './add-brand/add-brand.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { AdminGuard } from '../../core/guard/admin.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    // canActivate: [AdminGuard], // 🔐 admin only
+    canActivate: [AdminGuard], 
     children: [
       { path: 'category', component: AddCategoryComponent },
       { path: 'brand', component: AddBrandComponent },
