@@ -24,7 +24,7 @@
   100% { opacity: 0; transform: translateY(20px) translateX(-50%); }
 }
 
-.popup.success { background-color: #c20330; }
+.popup.success { background-color: var(--first-color); }
 .popup.error { background-color: #ec053b; }
 .popup.info { background-color: blue; }
 

@@ -3,3 +3,11 @@ export interface RegisterReq {
   email: string;
   password: string;
 }
+
+
+export interface LogOut {
+    accessToken: string;
+    refreshToken: string;
+}
+
+

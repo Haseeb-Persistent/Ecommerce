@@ -1,69 +1,67 @@
-/* ===== HERO SECTION ===== */
-.promo-img {
-  width: 100%;
-  height: 175px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  transition: transform 0.3s ease;
+.grid {
+    display: grid;
+    gap: 1.5rem;
 }
 
-.promo-img:hover {
-  transform: scale(1.03);
+.section--lg {
+    padding-block: 4rem;
 }
 
-.main-slider {
-  height: 365px;
-  object-fit: cover;
-  border-radius: 14px;
+.home__container {
+    grid-template-columns: 5fr 7fr;
+    align-items: center;
 }
 
-/* ===== FEATURED PRODUCTS ===== */
-.product-head h2 {
-  font-weight: 700;
-  color: #222;
+.home__subtitle,
+.home__description {
+    font-size: var(--large-font-size);
 }
 
-.product-card {
-  width: 210px;
-  background: #fff;
-  border-radius: 14px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  transition: all 0.3s ease;
-  cursor: pointer;
+.home__subtitle {
+    font-family: var(--second-font-family);   /* probably meant --second-font-family, not color */
+    font-weight: var(--weight-600);
+    margin-bottom: 1rem;
+    display: block;
 }
 
-.product-card img {
-  width: 100%;
-  height: 170px;
-  object-fit: contain;
+.home__title {
+    font-size: var(--h1-font-size);
+    font-weight: var(--weight-700);
+    line-height: 1.4;
 }
 
-.product-card h6 {
-  font-size: 14px;
-  margin-top: 10px;
-  font-weight: 600;
+.home__title span {
+    color: var(--first-color);
+    font-size: var(--big-font-size);
 }
 
-.product-card .price {
-  color: #c20330;
-  font-weight: 700;
+.home__description {
+    margin-block: 0.5rem 2rem;
 }
 
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+.home__img {
+    justify-self: flex-end;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 992px) {
-  .promo-img {
-    height: 150px;
-  }
+/*==================== BUTTONS =====================*/
+.btn-Own {
+    display: inline-block;
+    background-color: var(--first-color);
+    border: 2px solid var(--first-color);
+    color: var(--body-color);
+    padding-inline: 1.75rem;
+    height: 49px;
+    line-height: 49px;
+    border-radius: 0.25rem;
+    font-family: var(--second-font-family);   /* --second-font-family ya --font-secondary */
+    font-size: var(--small-font-size);
+    font-weight: var(--weight-700);
+    text-decoration: none;
+    transition: all 0.4s var(--transition);
+    cursor: pointer;
+}
 
-  .main-slider {
-    height: 280px;
-  }
+.btn-Own:hover {
+    background-color: transparent;
+    color: var(--first-color);
 }

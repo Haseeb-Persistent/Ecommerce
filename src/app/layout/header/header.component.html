@@ -1,172 +1,92 @@
-<header class="main-header ">
-  <div class="container-fluid px-5">
-    <div class="row align-items-center">
-      
-      <!-- 🛍 Logo -->
-      <div class="col-2 text-center">
-        <div class="app-icon">
-          <img src="assets/nav-head-logo.png" alt="E-Shop Logo" />
-        </div>
+<header class="header">
+  <div class="header-top">
+    <div class="header__container container">
+      <div class="header_contact">
+        <span>(+01) - 2345 - 67898</span>
+        <span>Our Location</span>
       </div>
-
-      <!-- 🔎 Search Bar -->
-      <div class="col-7">
-        <div class="input-group stylish-search">
-          <input 
-            type="text" 
-            class="form-control search-input" 
-            placeholder="Search for products, brands and more..." 
-          />
-          <button class="btn search-btn" type="button">
-         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-</svg>
-          </button>
+        <ng-container *ngIf="!authService.isLoggedIn()">
+        <div style="display: flex;align-items: center;justify-content: center;color: #fff;gap: 18px;" >
+            <a routerLink="/Authentication/login" class="auth-Section" >Login</a>
+            <a routerLink="/Authentication/register" class="auth-Section" >SingUp</a>
         </div>
-      </div>
+        </ng-container>
+       <div
+  class="user-box"
+  *ngIf="authService.isLoggedIn()"
+>
+  <!-- user / admin icon -->
+  <i
+    class="fa-solid"
+    [ngClass]="authService.isAdmin() ? 'fa-user-shield' : 'fa-user'"
+  ></i>
 
-   <div class="col-3">
-  <div class="icons d-flex justify-content-end align-items-center gap-4">
-    <ng-container *ngIf="authService.isLoggedIn()" >
- <div class="icon-item" >
-  <a routerLink="/WishList">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-         class="bi bi-heart-fill" viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
-    </svg>
+  <!-- username -->
+  <span class="username">
+    {{ username }}
+  </span>
 
-    <!-- Badge showing count -->
-    <span class="wishlist-count" *ngIf="(wishlist$ | async)?.length as count">
-      {{ count }}
-    </span>
-  </a>
+  <!-- logout -->
+  <i
+    class="fa-solid fa-right-from-bracket logout"
+    (click)="logOut()"
+  ></i>
 </div>
-    <div class="icon-item">
-      <a routerLink="/Cart" >
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-        class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd"
-          d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0m-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
-      </svg>
-         <span class="wishlist-count" *ngIf="(Cart$ | async)?.length as count">
-      {{ count }}
-    </span>
-      <!-- Badge showing count -->
-      </a>
+
     
     </div>
-    </ng-container>
+    
+  </div>
 
+  <nav class="nav container">
+    <a routerLink="/" class="nav__logo">
+      <img src="assets/logo.svg" alt="Logo" class="nav__logo-img" />
+    </a>
 
-
-
-
-<div class="auth-area d-flex align-items-center gap-3">
-
-  <!-- Not Logged In -->
-  <ng-container *ngIf="!authService.isLoggedIn()">
-    <div class="account-btn" routerLink="/Authentication/login">
-      Login
-    </div>
-
-    <div class="account-btn" routerLink="/Authentication/register">
-      Register
-    </div>
-  </ng-container>
-
-  <!-- Logged In -->
-  <ng-container *ngIf="authService.isLoggedIn()">
-    <div class="user-menu dropdown">
-      <button
-        class="user-btn dropdown-toggle"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <i class="fa-solid fa-user"></i>
-        <span class="username">{{ username }}</span>
-      </button>
-
-      <ul class="dropdown-menu dropdown-menu-end shadow">
-        <li>
-          <a class="dropdown-item" routerLink="/dashboard">
-            <i class="fa-solid fa-gauge me-2"></i> Dashboard
-          </a>
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a routerLink="/" class="nav__link active-link">Home</a>
         </li>
-
-        <li>
-          <a class="dropdown-item" routerLink="/profile">
-            <i class="fa-solid fa-user-gear me-2"></i> Profile
-          </a>
+        <li class="nav__item">
+          <a routerLink="products" class="nav__link">Shop</a>
         </li>
-
-        <li><hr class="dropdown-divider" /></li>
-
-        <li>
-          <button class="dropdown-item-log border-0" (click)="logOut()">
-            <i class="fa-solid fa-right-from-bracket me-2"></i> 
-            Logout
-          </button>
+        <li class="nav__item">
+          <a routerLink="/account" class="nav__link">My Account</a>
+        </li>
+        <li class="nav__item">
+          <a routerLink="/contact" class="nav__link">Contact</a>
         </li>
       </ul>
-    </div>
-  </ng-container>
 
-</div>
+      <!-- SEARCH -->
+      <div class="header__search">
+        <input
+          type="text"
+          placeholder="Search for items..."
+          class="form__input"
+        />
 
-  </div>
-</div>
+        <button class="search__btn">
+          <img src="assets/search.png" alt="Search" />
+        </button>
+      </div>
+
+      <!-- USER ACTIONS -->
+      <div class="header__user-actions">
+        <a  routerLink="WishList" class="header__action-btn">
+          <img src="assets/icon-heart.svg" alt="Wishlist" />
+          <span *ngIf="(wishlist$ | async)?.length as count"  class="count">
+            {{count}}
+          </span>
+        </a>
+        <a routerLink="Cart" class="header__action-btn">
+          <img src="assets/icon-cart.svg" alt="Cart" />
+      <span *ngIf="(Cart$ | async)?.length as count"  class="count">
+            {{count}}
+          </span>
+        </a>
+      </div>
     </div>
-  </div>
+  </nav>
 </header>
-
-
-<nav class="navbar navbar-expand-lg border-0 py-2">
-  <div class="container">
-    <!-- Responsive toggle -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar content -->
-    <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
-
-        <!-- All Departments Dropdown -->
-   <li class="nav-item dropdown me-3">
-  <button
-    class="btn btn-success dropdown-toggle fw-semibold px-3 py-2"
-    id="departmentsDropdown"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    <i class="bi bi-grid-fill me-2"></i> Categories
-  </button>
-
-  <ul class="dropdown-menu shadow border-0" aria-labelledby="departmentsDropdown">
-    <li>
-      <a class="dropdown-item" href="#">
-        Electronics
-      </a>
-    </li>
-  </ul>
-</li>
-
-
-
-        <!-- Normal Menu Items -->
-<li class="nav-item " >
-  <a routerLink="/" class="nav-link fw-semibold">Home</a>
-</li>
-
-<li class="nav-item">
-  <a routerLink="/products" class="nav-link fw-semibold">Shop</a>
-</li>
-
-    
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#">Account</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#">Dashboard</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>

@@ -1,89 +1,108 @@
-<section class="wishlist-section mt-5 mb-5">
-  <div class="container">
-    <h2 class="wishlist-title">My Cart</h2>
+<!-- Cart Drawer (Offcanvas) -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="cartDrawerLabel">
+      <i class="bi bi-cart3 me-2"></i> My Cart
+      <span class="badge bg-primary ms-2" *ngIf="(CartItem$ | async)?.length">
+        {{ (CartItem$ | async)?.length }}
+      </span>
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
 
-    <ng-container *ngIf="CartItem$ | async as cartItems; else loading">
-
-      <!-- EMPTY -->
-      <div *ngIf="cartItems.length === 0" class="empty">
-        🛒 Your cart is empty
+  <div class="offcanvas-body p-0 d-flex flex-column">
+    <!-- Loading State -->
+    <ng-container *ngIf="!(CartItem$ | async); else content">
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 text-muted">Loading your cart...</p>
       </div>
-
-      <!-- TABLE -->
-      <div class="table-responsive" *ngIf="cartItems.length > 0">
-        <table class="wishlist-table">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Status</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let item of cartItems">
-              <!-- PRODUCT -->
-              <td class="product-cell">
-                <img
-                  [src]="getImageUrl(item.product)"
-                  alt="{{ item.product?.name }}"
-                  width="50"
-                />
-                <div>
-                  <div class="name">{{ item.product?.name }}</div>
-                  <small class="category">{{ item.product?.category }}</small>
-                </div>
-              </td>
-
-              <!-- PRICE -->
-              <td class="price">
-                <span class="new">
-                  {{ item.product?.newPrice | currency:'PKR' }}
-                </span>
-                <span class="old" *ngIf="item.product?.isOnDiscount">
-                  {{ item.product?.orignalPrice | currency:'PKR' }}
-                </span>
-              </td>
-
-              <!-- STOCK -->
-              <td>
-                <span
-                  class="stock"
-                  [class.in]="item.product?.inStock"
-                  [class.out]="!item.product?.inStock"
-                >
-                  {{ item.product?.inStock ? 'In Stock' : 'Out of Stock' }}
-                </span>
-              </td>
-
-              <!-- ACTIONS -->
-              <td class="actions">
-                <button
-                  class="btn-cart"
-                  [disabled]="!item.product?.inStock"
-                  (click)="CheckOut(item.productId)"
-                >
-                  Checkout
-                </button>
-
-                <button
-                  class="btn-remove"
-                  (click)="remove(item.productId)"
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
     </ng-container>
 
-    <ng-template #loading>
-      <p>Loading cart...</p>
-    </ng-template>
+    <ng-template #content>
+      <ng-container *ngIf="CartItem$ | async as cartItems">
+        <!-- Empty Cart -->
+        <div *ngIf="cartItems.length === 0" class="text-center py-5">
+          <i class="bi bi-cart-x display-1 text-muted"></i>
+          <h5 class="mt-3">Your cart is empty</h5>
+          <p class="text-muted">Looks like you haven't added anything yet.</p>
+          <a routerLink="/products" class="btn btn-outline-primary mt-3">
+            Start Shopping
+          </a>
+        </div>
 
+        <!-- Cart Items -->
+        <div *ngIf="cartItems.length > 0" class="flex-grow-1 overflow-auto">
+          <div class="cart-items p-3">
+            <div class="cart-item d-flex align-items-center gap-3 py-3 border-bottom" 
+                 *ngFor="let item of cartItems; let i = index">
+              
+              <!-- Product Image -->
+              <div class="cart-item-img flex-shrink-0">
+                <img [src]="getImageUrl(item.product)" 
+                     alt="{{item.product?.name}}" 
+                     class="img-fluid rounded" 
+                     style="width: 80px; height: 80px; object-fit: cover;">
+              </div>
+
+              <!-- Product Info -->
+              <div class="flex-grow-1">
+                <h6 class="mb-1">{{ item.product?.name }}</h6>
+                <small class="text-muted d-block mb-1">{{ item.product?.category }}</small>
+                
+                <div class="price mb-2">
+                  <span class="fw-bold text-dark">
+                    {{ item.product?.newPrice | currency:'PKR':'symbol-narrow':'1.0-0' }}
+                  </span>
+                  <small *ngIf="item.product?.isOnDiscount" class="text-decoration-line-through text-muted ms-2">
+                    {{ item.product?.orignalPrice | currency:'PKR':'symbol-narrow':'1.0-0' }}
+                  </small>
+                </div>
+
+                <!-- Stock Status -->
+                <span class="badge" 
+                      [ngClass]="item.product?.inStock ? 'bg-success' : 'bg-danger'">
+                  {{ item.product?.inStock ? 'In Stock' : 'Out of Stock' }}
+                </span>
+              </div>
+
+              <!-- Actions -->
+              <div class="d-flex flex-column gap-2">
+                <button class="btn btn-sm btn-outline-danger"
+                        (click)="remove(item.productId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+
+                <button class="btn btn-sm btn-primary"
+                        [disabled]="!item.product?.inStock"
+                        (click)="CheckOut(item.productId); $event.stopPropagation()">
+                  Checkout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer (Total + Actions) -->
+        <div *ngIf="cartItems.length > 0" class="cart-footer border-top p-3 mt-auto">
+          <div class="d-flex justify-content-between mb-3">
+            <span class="fw-bold">Total Items:</span>
+            <span class="fw-bold">{{ cartItems.length }}</span>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" >
+              Proceed to Checkout
+            </button>
+            <button class="btn btn-outline-secondary"
+                    data-bs-dismiss="offcanvas">
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
   </div>
-</section>
+</div>

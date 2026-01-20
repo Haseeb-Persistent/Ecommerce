@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginReq, LoginResData } from '../Models/LoginReq';
 import { ResponseDto } from '../Models/ResponseDto';
-import { RegisterReq } from '../Models/auth';
+import { LogOut, RegisterReq } from '../Models/auth';
 import { environment } from '../enviroment/enviroment';
 import { ok } from 'node:assert';
 import { of } from 'rxjs';
@@ -44,12 +44,17 @@ export class AuthService {
     return this.http.post<ResponseDto<null>>(`${this.apiUrl}/register`, userData)
   }
 
-  logout() {
-    if (!this.isBrowser()) return;
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    this.IsUserLoggedIn = false;
-  }
+logout() {
+  if (!this.isBrowser()) return;
+
+  this.http.post(`${this.apiUrl}`, {}).subscribe({
+    next: () => {
+      localStorage.clear();
+      this.IsUserLoggedIn = false;
+    }
+  });
+}
+
 
 getRole(): string | null {
   if (!this.isBrowser()) return null;

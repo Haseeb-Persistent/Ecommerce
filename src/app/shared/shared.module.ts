@@ -5,17 +5,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RatingComponent } from './components/rating/rating.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { CartComponent } from '../cart/cart.component';
 
 @NgModule({
   declarations: [
     RatingComponent,
-    LoaderComponent
+    LoaderComponent,
+    CartComponent
+
+
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     // components
@@ -26,7 +30,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CartComponent
   ]
 })
 export class SharedModule {}

@@ -20,13 +20,13 @@
 
 /* Hover effect */
 .sidebar-menu .nav-link:hover {
-  background-color: #c20330;
+  background-color: var(--first-color);
   color: #ffffff;
 }
 
 /* Active route */
 .sidebar-menu .nav-link.active {
-  background-color: #c20330;
+  background-color: var(--first-color);
   color: #ffffff;
   font-weight: 500;
 }

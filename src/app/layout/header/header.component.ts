@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { loadCart } from '../../../redux/Cart/cart-action';
 import { selectCartCount, selectCartItems } from '../../../redux/Cart/cart-selector';
 import { CartItem } from '../../core/Models/Cart';
+import { LogOut } from '../../core/Models/auth';
 
 @Component({
   selector: 'app-header',
@@ -33,10 +34,12 @@ username: string | null = localStorage.getItem('userName');
     this.username = localStorage.getItem('username');
   }
 
-  logOut() {
-    this.authService.logout();
-    this.isLoggedIn = false;
-    this.router.navigate(['/Authentication/login']);
-  }
+
+logOut() {
+  this.authService.logout();
+  this.isLoggedIn = false;
+  this.router.navigate(['/Authentication/login']);
+}
+
 
 }

@@ -17,7 +17,7 @@
 }
 
 .product-card:hover {
-  border: 3px solid #c20330;
+  border: 3px solid var(--first-color);
 }
 
 /* Action Icons */
@@ -46,7 +46,7 @@
   border-radius: 50%;
   border: none;
   background: #fff;
-  color: #c20330;
+  color: var(--first-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@
 }
 
 .icon-btn:hover {
-  background: #c20330;
+  background: var(--first-color);
   color: #fff;
   transform: scale(1.1);
 }
@@ -98,7 +98,7 @@
 }
 
 .discount {
-  color: #c20330;
+  color: var(--first-color);
   font-weight: 600;
 }
 
@@ -109,13 +109,13 @@
 }
 
 .price {
-  color: #c20330;
+  color: var(--first-color);
   font-weight: 800;
 }
 
 /* Button */
 .buy-btn {
-  background: #c20330;
+  background: var(--first-color);
   color: #fff;
   border-radius: 999px;
   margin-top: 10px;
@@ -124,8 +124,8 @@
 
 .buy-btn:hover {
   background: none;
-  color: #c20330;
-  border: 3px solid #c20330;
+  color: var(--first-color);
+  border: 3px solid var(--first-color);
 }
 
 /* Badges */
@@ -139,7 +139,7 @@
 }
 
 .badge-featured {
-  background: #c20330;
+  background: var(--first-color);
   color: #fff;
   padding: 4px 10px;
 }

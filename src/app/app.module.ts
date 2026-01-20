@@ -42,7 +42,6 @@ import { CartComponent } from './cart/cart.component';
     HomePageComponent,  
     WishListComponent,
     PopupComponent,
-    CartComponent,
     
   ],
   imports: [

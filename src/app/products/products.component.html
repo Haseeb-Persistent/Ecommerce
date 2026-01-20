@@ -8,7 +8,7 @@
 
 
 <ng-container *ngIf="IsUserLoggedIn" >
-<div  class="container">
+    <div  class="container">
     <div class="row">
         <div class="col-3">
             <app-filter (filterChanged)="onFilterChanged($event)"[minPrice]="minPrice" [maxPrice]="maxPrice"></app-filter>
@@ -17,7 +17,7 @@
             <app-sort-header [itemToShow]="pageSize" [pageItem]="count"   (sortHeaderChanges)="sortHeaderChanges($event)"></app-sort-header>
             <div class="product-grid">
            <app-product-card *ngFor="let p of products" [product]="p" ></app-product-card>
-                 
+                
             </div>
 <app-pagination *ngIf="count" [pageItems]="count" [pageSize]="pageSize" [currentPage]="0"(pageChanged)="display($event)"></app-pagination>
         </div>

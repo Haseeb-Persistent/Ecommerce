@@ -6,9 +6,9 @@
 }
 
 .pagination-btn {
-  border: 2px solid #c20330;
+  border: 2px solid var(--first-color);
   background-color: transparent;
-  color: #c20330;
+  color: var(--first-color);
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -18,7 +18,7 @@
 
 .pagination-btn-ctrl{
     border: 0px;
-  background-color: #c20330;
+  background-color: var(--first-color);
   color: #ffffff;
   padding: 9px 16px;
   border-radius: 5px;
@@ -28,14 +28,14 @@
 }
 
 .pagination-btn:hover:not([disabled]) {
-  background-color: #c20330;
+  background-color: var(--first-color);
   color: white;
 }
 
 .pagination-btn.active {
-  background-color: #c20330;
+  background-color: var(--first-color);
   color: white;
-  border-color: #c20330;
+  border-color: var(--first-color);
 }
 
 .pagination-btn:disabled {

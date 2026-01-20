@@ -16,7 +16,7 @@
 /* On hover/focus */
 .custom-select:hover,
 .custom-select:focus {
-  border-color: #c20330 !important;
+  border-color: var(--first-color) !important;
   box-shadow: 0 0 5px rgba(194,3,48,0.5) !important;
   outline: none !important;
 }

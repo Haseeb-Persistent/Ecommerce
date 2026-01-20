@@ -1,6 +1,6 @@
 .wishlist-title {
   font-weight: 600;
-  color: #c20330;
+  color: var(--first-color);
 }
 
 .wishlist-table {
@@ -10,7 +10,7 @@
 }
 
 .wishlist-table thead {
-  background: #c20330;
+  background: var(--first-color);
   color: #fff;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .btn-cart {
-  background: #c20330;
+  background: var(--first-color);
   color: #fff;
   border: none;
   padding: 6px 14px;
@@ -59,15 +59,15 @@
 
 .btn-remove {
   background: transparent;
-  color: #c20330;
-  border: 1px solid #c20330;
+  color: var(--first-color);
+  border: 1px solid var(--first-color);
   padding: 6px 14px;
   border-radius: 6px;
   font-size: 14px;
 }
 
 .btn-remove:hover {
-  background: #c20330;
+  background: var(--first-color);
   color: #fff;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .price .new {
-  color: #c20330;
+  color: var(--first-color);
   font-weight: 600;
 }
 
@@ -110,7 +110,7 @@
 
 .stock.out {
   background: #fdecea;
-  color: #c20330;
+  color: var(--first-color);
 }
 
 .btn-cart:disabled {

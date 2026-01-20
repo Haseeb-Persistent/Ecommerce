@@ -26,7 +26,7 @@ body {
         }
 
         .login-title {
-            color: #c20330;
+            color: var(--first-color);
             font-weight: 800;
             text-align: center;
             margin-bottom: 30px;
@@ -51,7 +51,7 @@ body {
 
 /* Title */
 .login-title {
-  color: #c20330;
+  color: var(--first-color);
   font-weight: 800;
   text-align: center;
   margin-bottom: 30px;
@@ -94,7 +94,7 @@ body {
 .custom-input:not(:placeholder-shown) + label {
   top: -7px;
   font-size: 11px;
-  color: #c20330;
+  color: var(--first-color);
   font-weight: 600;
 }
 
@@ -121,7 +121,7 @@ body {
 
 /* Button */
 .btn-login {
-  background-color: #c20330;
+  background-color: var(--first-color);
   color: #ffffff;
   padding: 10px;
   font-weight: 600;
@@ -135,7 +135,7 @@ body {
 
 /* Links */
 .login-link {
-  color: #c20330;
+  color: var(--first-color);
   text-decoration: none;
   font-size: 14px;
 }
