@@ -12,15 +12,18 @@ export class CartService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  getCart() {
-    const userId = this.getCurrentUserId();
-    if (!userId) throw new Error('User not logged in');
+getCart() {
+  const userId = this.getCurrentUserId();
 
-    return this.http.get<{ cartItems: CartItem[] }>(`Cart/${userId}`)
-      .pipe(
-        map(res => res.cartItems)
-      );
+  if (!userId) {
+    return [];
   }
+
+  return this.http
+    .get<{ cartItems: CartItem[] }>(`Cart/${userId}`)
+    .pipe(map(res => res.cartItems));
+}
+
 
   addToCart(productId: number) {
     const userId = this.getCurrentUserId();
@@ -36,7 +39,10 @@ export class CartService {
     return this.http.delete<ResponseDto<null>>(`Cart/Remove/${userId}/${productId}`);
   }
 
-  private getCurrentUserId(): number | null {
-    const id = localStorage.getItem('userId');
-    return id ? parseInt(id, 10) : null;}
+getCurrentUserId() {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('userId');
+  }
+  return null;
+}
 }

@@ -1,44 +1,60 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
 import { AppState } from '../../../redux/store';
 import { selectWishlistItems } from '../../../redux/Wishlist/wish-selector';
+import { selectCartItems } from '../../../redux/Cart/cart-selector';
+
 import { WishListItem } from '../../core/Models/WishListItem';
-import { Observable } from 'rxjs';
-import { loadWishlist } from '../../../redux/Wishlist/wishlist-action';
-import { AuthService } from '../../core/Services/authentication.service';
-import { Router } from '@angular/router';
-import { loadCart } from '../../../redux/Cart/cart-action';
-import { selectCartCount, selectCartItems } from '../../../redux/Cart/cart-selector';
 import { CartItem } from '../../core/Models/Cart';
-import { LogOut } from '../../core/Models/auth';
+import { AuthService } from '../../core/Services/authentication.service';
+import { loadWishlist } from '../../../redux/Wishlist/wishlist-action';
+import { loadCart } from '../../../redux/Cart/cart-action';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'] 
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
 
-isLoggedIn = false;
-username: string | null = localStorage.getItem('userName');
+  isLoggedIn = false;
+  username: string | null = null;
 
-  wishlist$!: Observable<WishListItem[]>; 
-  Cart$!: Observable<CartItem[]>; 
-  constructor(private store: Store<AppState>,public authService:AuthService,private router:Router) { }
+  wishlist$!: Observable<WishListItem[]>;
+  Cart$!: Observable<CartItem[]>;
+
+  constructor(
+    private store: Store<AppState>,
+    public authService: AuthService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
-     this.isLoggedIn = this.authService.isLoggedIn();
-        this.store.dispatch(loadWishlist({ force: true }));
-    this.wishlist$ = this.store.select(selectWishlistItems);
-        this.store.dispatch(loadCart({ force: true }));
-    this.Cart$ = this.store.select(selectCartItems);
-    this.username = localStorage.getItem('username');
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+
+    // ✅ browser check
+    if (typeof window !== 'undefined') {
+
+      this.username = localStorage.getItem('username');
+
+      this.store.dispatch(loadWishlist({ force: true }));
+      this.wishlist$ = this.store.select(selectWishlistItems);
+
+      this.store.dispatch(loadCart({ force: true }));
+      this.Cart$ = this.store.select(selectCartItems);
+    }
   }
 
+  logOut() {
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+    }
 
-logOut() {
-  this.isLoggedIn = false;
-  this.router.navigate(['/Authentication/login']);
-}
-
-
+    this.isLoggedIn = false;
+    this.router.navigate(['/Authentication/login']);
+  }
 }
