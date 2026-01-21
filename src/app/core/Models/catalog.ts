@@ -4,7 +4,6 @@ export interface CatagoryResDto {
     id: number;
     name: string;
    image: ImageResDto | null;
-
 }
 
 export interface BrandResDto {
@@ -31,6 +30,7 @@ export interface ProductResDto {
     brand: BrandResDto;
     thumbnail: ImageResDto | null;
 }
+
 export interface Pagination<T> {
   pageIndex: number;
   pageSize: number;

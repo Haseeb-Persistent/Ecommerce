@@ -20,7 +20,6 @@ export class AuthService {
 
   login(credential: LoginReq) {
     this.isLoggingIn = true;
-
     return this.http.post<ResponseDto<LoginResData>>(`${this.apiUrl}/login`, credential).pipe(
       tap(response => {
         if (this.isBrowser() && response.isSuccessed && response.data) {
@@ -62,40 +61,12 @@ getRole(): string | null {
 }
 
 isAdmin(): boolean {
-  return this.getRole() === 'admin';
+  return this.getRole() === 'ADMIN';
 }
-  // RefreshUser() 
-  //   {
-  //   var refreshToken = localStorage.getItem('refreshToken');
-  //   var accessToken = localStorage.getItem('accessToken');
-  //   return this.http.post<ResponseDto<LoginResData>>(`${this.apiUrl}/refresh-token`, {
-  //     accessToken: accessToken,
-  //     refreshToken: refreshToken
-  //   }).pipe(
-  //     map (response => {
-  //       if (response.isSuccessed === true) {
-  //         localStorage.setItem('accessToken', response.data?.accessToken!);
-  //         localStorage.setItem('refreshToken', response.data?.refreshToken!);
-  //       }
-  //       else {
-  //         localStorage.setItem('accessToken', '');
-  //         localStorage.setItem('refreshToken', '');
-  //         this.IsUserLoggedIn = false;
-  //       }
-  //       return response;
-  //     }),
-  //     catchError( () => {
-  //       localStorage.setItem('accessToken', '');
-  //       localStorage.setItem('refreshToken', '');
-  //       this.IsUserLoggedIn = false;  
-  //        return of();
-  //     })
-  //   );
-  //   }
-
+  
   RefreshUser() {
     if (!isPlatformBrowser(this.platformId) || this.isLoggingIn) {
-      return of(null); // 🚫 browser check + login-time skip
+      return of(null); 
     }
 
     const refreshToken = localStorage.getItem('refreshToken');

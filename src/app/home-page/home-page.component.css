@@ -6,6 +6,9 @@
 .section--lg {
     padding-block: 4rem;
 }
+section {
+    padding-block: 2rem;
+}
 
 .home__container {
     grid-template-columns: 5fr 7fr;
@@ -65,3 +68,106 @@
     background-color: transparent;
     color: var(--first-color);
 }
+.categories-slider {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+}
+
+.categories-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.category__item {
+  min-width: 220px;
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.category__item:hover {
+  transform: translateY(-6px);
+}
+
+.category__img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.category__title {
+  text-align: center;
+  padding: 12px;
+  font-weight: 600;
+}
+.slider-wrapper {
+  position: relative;
+}
+
+.categories-slider {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 1rem 0;
+}
+
+.categories-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.category__item {
+  min-width: 220px;
+  background: #fff;
+  border-radius: 14px;
+  scroll-snap-align: start;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.category__item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.category__item h3 {
+  padding: 10px;
+  font-weight: 600;
+}
+
+/* BUTTONS */
+
+.slide-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--first-color);
+  color: #fff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.85;
+}
+
+.slide-btn.left {
+  left: -15px;
+}
+
+.slide-btn.right {
+  right: -15px;
+}
+
+.slide-btn:hover {
+  opacity: 1;
+}
+

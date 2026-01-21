@@ -10,7 +10,6 @@ const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [AdminGuard], 
     children: [
       { path: 'category', component: AddCategoryComponent },
       { path: 'brand', component: AddBrandComponent },

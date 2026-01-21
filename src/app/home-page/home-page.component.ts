@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ProductResDto } from '../core/Models/catalog';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CatagoryResDto, ProductResDto } from '../core/Models/catalog';
 import { CatalogService } from '../core/Services/catalog-service.service';
 
 export interface Product {
@@ -14,28 +14,28 @@ export interface Product {
     styleUrls: ['./home-page.component.css'] 
   })
 export class HomePageComponent {
-    constructor(private catalogService: CatalogService) { }
 
- products: ProductResDto[] = [];
-ngOnInit() {
-  this.catalogService.getAllProducts().subscribe(res => {
-    if (res.data?.data) {
-      // Filter featured only
-      this.products = res.data.data.filter(p => p.isFeatured);
-    }
-  });
-}
+  @ViewChild('slider') slider!: ElementRef;
 
-    
+  ListCategory: CatagoryResDto[] = [];
 
+  baseImageUrl = 'https://haseebapieshop.runasp.net/Image/';
 
-get groupedProducts() {
-  const chunkSize = 5;
-  const result = [];
-  for (let i = 0; i < this.products.length; i += chunkSize) {
-    result.push(this.products.slice(i, i + chunkSize));
+  constructor(private catalogService: CatalogService) {}
+
+  ngOnInit() {
+    this.catalogService.getCategories().subscribe(res => {
+      if (res.data) {
+        this.ListCategory = res.data;
+      }
+    });
   }
-  return result;
-}
 
+  scrollLeft() {
+    this.slider.nativeElement.scrollLeft -= 260;
+  }
+
+  scrollRight() {
+    this.slider.nativeElement.scrollLeft += 260;
+  }
 }

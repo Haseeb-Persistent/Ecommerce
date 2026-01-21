@@ -15,7 +15,7 @@ import { LogOut } from '../../core/Models/auth';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'] // fixed plural
+  styleUrls: ['./header.component.css'] 
 })
 export class HeaderComponent implements OnInit {
 
@@ -36,7 +36,6 @@ username: string | null = localStorage.getItem('userName');
 
 
 logOut() {
-  this.authService.logout();
   this.isLoggedIn = false;
   this.router.navigate(['/Authentication/login']);
 }

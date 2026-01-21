@@ -20,4 +20,48 @@
             />
         </div>
     </section>
+
+
+<section class="categories container section">
+  <h3 class="section__title fw-bold">
+    <span style="color: var(--first-color);">Popular</span> Categories
+  </h3>
+
+  <div class="slider-wrapper">
+    <!-- LEFT -->
+    <button class="slide-btn left " (click)="scrollLeft()">
+<i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- SLIDER -->
+  <div class="categories-slider" #slider>
+  <div
+    class="category__item"
+    *ngFor="let item of ListCategory"
+  >
+    <img
+      [src]="
+        item.image?.imageUrl
+          ? baseImageUrl + item.image?.imageUrl
+          : 'assets/category-1.jpg'
+      "
+      alt="category"
+    />
+
+    <h3>{{ item.name }}</h3>
+  </div>
+</div>
+
+    <!-- RIGHT -->
+    <button class="slide-btn right" (click)="scrollRight()">
+<i class="fa-solid fa-chevron-right"></i>
+
+    </button>
+  </div>
+</section>
+
+
+
+
+
 </main>

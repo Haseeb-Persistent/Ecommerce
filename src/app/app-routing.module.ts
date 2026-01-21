@@ -5,6 +5,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { authGuard } from './core/guard/auth.guard';
 import { CartComponent } from './cart/cart.component';
+import { AdminGuard } from './core/guard/admin.guard';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'Admin',
-         canActivateChild: [authGuard],
+         canActivate: [AdminGuard],
         loadChildren: () =>
           import('./admin/add-catalog/add-catalog.module').then(
             (m) => m.AddCatalogModule
