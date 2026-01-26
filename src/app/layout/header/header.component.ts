@@ -12,6 +12,7 @@ import { CartItem } from '../../core/Models/Cart';
 import { AuthService } from '../../core/Services/authentication.service';
 import { loadWishlist } from '../../../redux/Wishlist/wishlist-action';
 import { loadCart } from '../../../redux/Cart/cart-action';
+import { CartDrawerService } from '../../core/Services/cart-drawer.service';
 
 @Component({
   selector: 'app-header',
@@ -29,21 +30,23 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     public authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    
+    private cartDrawer: CartDrawerService
+  ) {
+    
+  }
+
+
 
   ngOnInit(): void {
 
     this.isLoggedIn = this.authService.isLoggedIn();
 
-    // ✅ browser check
     if (typeof window !== 'undefined') {
-
       this.username = localStorage.getItem('username');
-
       this.store.dispatch(loadWishlist({ force: true }));
       this.wishlist$ = this.store.select(selectWishlistItems);
-
       this.store.dispatch(loadCart({ force: true }));
       this.Cart$ = this.store.select(selectCartItems);
     }
@@ -53,8 +56,12 @@ export class HeaderComponent implements OnInit {
     if (typeof window !== 'undefined') {
       localStorage.clear();
     }
-
     this.isLoggedIn = false;
     this.router.navigate(['/Authentication/login']);
+  }
+
+  CartOpen(){
+this.cartDrawer.OpenCart()
+
   }
 }

@@ -10,6 +10,7 @@ import { WishListItem } from './core/Models/WishListItem';
 import { selectWishlistItems } from '../redux/Wishlist/wish-selector';
 import { MessageService } from './core/Services/messgae.service';
 import { AuthService } from './core/Services/authentication.service';
+import { CartDrawerService } from './core/Services/cart-drawer.service';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit{
   categories$:Observable<CatagoryResDto[]>;
    wishlist$!: Observable<WishListItem[]>; // wishlist$ is an Observable of array
 
-  constructor(private store:Store<AppState>,private router: Router,private pop:MessageService){
+  constructor(private store:Store<AppState>,private router: Router,private pop:MessageService,private cartDrawer: CartDrawerService){
     this.categories$ = this.store.select(selectCategories);
       this.wishlist$ = this.store.select(selectWishlistItems);
   }

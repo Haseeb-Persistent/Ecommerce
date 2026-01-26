@@ -1,108 +1,73 @@
-<!-- Cart Drawer (Offcanvas) -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
-  <div class="offcanvas-header border-bottom">
-    <h5 class="offcanvas-title" id="cartDrawerLabel">
-      <i class="bi bi-cart3 me-2"></i> My Cart
-      <span class="badge bg-primary ms-2" *ngIf="(CartItem$ | async)?.length">
-        {{ (CartItem$ | async)?.length }}
-      </span>
+<!-- overlay -->
+<div class="overlay" [class.show]="isOpen" (click)="close()"></div>
+
+<div class="cart-drawer" [class.open]="isOpen">
+
+  <!-- HEADER -->
+  <div class="cart-header">
+    <h5>
+      <i style="color: var(--first-color);" class="fa fa-shopping-bag"></i>
+      {{ (CartItem$ | async)?.length || 0 }} items
     </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+    <button (click)="close()">
+      <i class="fa fa-times"></i>
+    </button>
   </div>
 
-  <div class="offcanvas-body p-0 d-flex flex-column">
-    <!-- Loading State -->
-    <ng-container *ngIf="!(CartItem$ | async); else content">
-      <div class="text-center py-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
+  <!-- FREE SHIPPING -->
+  <div class="free-ship">
+    You are eligible for free shipping!
+  </div>
+
+  <!-- BODY -->
+  <div class="cart-body">
+
+    <ng-container *ngIf="CartItem$ | async as cartItems">
+
+      <div
+        class="cart-item"
+        *ngFor="let item of cartItems; trackBy: trackById"
+      >
+
+        <img
+          [src]="getImageUrl(item.product)"
+          alt=""
+        />
+
+        <div class="info">
+          <span>{{ item.product.name }}</span>
+          <p *ngIf="item.product.isOnDiscount">
+            <del>Rs. {{ item.product.orignalPrice }}</del>
+          </p>
+
+          <p style="color: var(--first-color);">
+            Rs. {{ item.product.newPrice }}
+          </p>
+
+          <div class="qty">
+            <button (click)="decrease(item.product.id)">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="increase(item.product.id)">+</button>
+          </div>
         </div>
-        <p class="mt-3 text-muted">Loading your cart...</p>
+
+        <div class="price">
+          Rs. {{ item.product.newPrice * item.quantity }}
+        </div>
+
       </div>
+
     </ng-container>
 
-    <ng-template #content>
-      <ng-container *ngIf="CartItem$ | async as cartItems">
-        <!-- Empty Cart -->
-        <div *ngIf="cartItems.length === 0" class="text-center py-5">
-          <i class="bi bi-cart-x display-1 text-muted"></i>
-          <h5 class="mt-3">Your cart is empty</h5>
-          <p class="text-muted">Looks like you haven't added anything yet.</p>
-          <a routerLink="/products" class="btn btn-outline-primary mt-3">
-            Start Shopping
-          </a>
-        </div>
-
-        <!-- Cart Items -->
-        <div *ngIf="cartItems.length > 0" class="flex-grow-1 overflow-auto">
-          <div class="cart-items p-3">
-            <div class="cart-item d-flex align-items-center gap-3 py-3 border-bottom" 
-                 *ngFor="let item of cartItems; let i = index">
-              
-              <!-- Product Image -->
-              <div class="cart-item-img flex-shrink-0">
-                <img [src]="getImageUrl(item.product)" 
-                     alt="{{item.product?.name}}" 
-                     class="img-fluid rounded" 
-                     style="width: 80px; height: 80px; object-fit: cover;">
-              </div>
-
-              <!-- Product Info -->
-              <div class="flex-grow-1">
-                <h6 class="mb-1">{{ item.product?.name }}</h6>
-                <small class="text-muted d-block mb-1">{{ item.product?.category }}</small>
-                
-                <div class="price mb-2">
-                  <span class="fw-bold text-dark">
-                    {{ item.product?.newPrice | currency:'PKR':'symbol-narrow':'1.0-0' }}
-                  </span>
-                  <small *ngIf="item.product?.isOnDiscount" class="text-decoration-line-through text-muted ms-2">
-                    {{ item.product?.orignalPrice | currency:'PKR':'symbol-narrow':'1.0-0' }}
-                  </small>
-                </div>
-
-                <!-- Stock Status -->
-                <span class="badge" 
-                      [ngClass]="item.product?.inStock ? 'bg-success' : 'bg-danger'">
-                  {{ item.product?.inStock ? 'In Stock' : 'Out of Stock' }}
-                </span>
-              </div>
-
-              <!-- Actions -->
-              <div class="d-flex flex-column gap-2">
-                <button class="btn btn-sm btn-outline-danger"
-                        (click)="remove(item.productId)">
-                  <i class="bi bi-trash"></i>
-                </button>
-
-                <button class="btn btn-sm btn-primary"
-                        [disabled]="!item.product?.inStock"
-                        (click)="CheckOut(item.productId); $event.stopPropagation()">
-                  Checkout
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Footer (Total + Actions) -->
-        <div *ngIf="cartItems.length > 0" class="cart-footer border-top p-3 mt-auto">
-          <div class="d-flex justify-content-between mb-3">
-            <span class="fw-bold">Total Items:</span>
-            <span class="fw-bold">{{ cartItems.length }}</span>
-          </div>
-
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary btn-lg" >
-              Proceed to Checkout
-            </button>
-            <button class="btn btn-outline-secondary"
-                    data-bs-dismiss="offcanvas">
-              Continue Shopping
-            </button>
-          </div>
-        </div>
-      </ng-container>
-    </ng-template>
   </div>
+
+  <!-- FOOTER -->
+  <div class="cart-footer">
+    <button class="checkout-btn">
+      <i class="fa fa-lock"></i>
+      CHECKOUT · Rs. {{ totalPrice$ | async }} PKR
+    </button>
+  </div>
+
 </div>

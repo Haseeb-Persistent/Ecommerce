@@ -36,6 +36,8 @@ import { AuthInterceptor } from './core/interceptor/auth-interceptor';
 import { CartComponent } from './cart/cart.component';
 import { AccountComponent } from './account/account.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { MyAccountComponent } from './my-account/my-account.component';
     PopupComponent,
     AccountComponent,
     MyAccountComponent,
+    ContactUsComponent,
+    CheckOutComponent,
     
   ],
   imports: [

@@ -45,18 +45,47 @@
 
     <div class="nav__menu" id="nav-menu">
       <ul class="nav__list">
-        <li class="nav__item">
-          <a routerLink="/" class="nav__link active-link">Home</a>
-        </li>
-        <li class="nav__item">
-          <a routerLink="products" class="nav__link">Shop</a>
-        </li>
-        <li class="nav__item">
-          <a routerLink="/UserAccount" class="nav__link">My Account</a>
-        </li>
-        <li class="nav__item">
-          <a routerLink="/contact" class="nav__link">Contact</a>
-        </li>
+     <li class="nav__item">
+  <a
+    routerLink="/dashboard"
+    routerLinkActive="active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="nav__link"
+  >
+    Home
+  </a>
+</li>
+
+<li class="nav__item">
+  <a
+    routerLink="/products"
+    routerLinkActive="active-link"
+    class="nav__link"
+  >
+    Shop
+  </a>
+</li>
+
+<li class="nav__item">
+  <a
+    routerLink="/UserAccount"
+    routerLinkActive="active-link"
+    class="nav__link"
+  >
+    My Account
+  </a>
+</li>
+
+<li class="nav__item">
+  <a
+    routerLink="/contact"
+    routerLinkActive="active-link"
+    class="nav__link"
+  >
+    Contact
+  </a>
+</li>
+
       </ul>
 
       <!-- SEARCH -->
@@ -80,7 +109,7 @@
             {{count}}
           </span>
         </a>
-        <a routerLink="Cart" class="header__action-btn">
+        <a (click)="CartOpen()"  class="header__action-btn">
           <img src="assets/icon-cart.svg" alt="Cart" />
       <span *ngIf="(Cart$ | async)?.length as count"  class="count">
             {{count}}

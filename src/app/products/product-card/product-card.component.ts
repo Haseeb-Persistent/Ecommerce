@@ -9,6 +9,7 @@ import { MessageService } from '../../core/Services/messgae.service';
 import { CartItem } from '../../core/Models/Cart';
 import { addToCart } from '../../../redux/Cart/cart-action';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { CartDrawerService } from '../../core/Services/cart-drawer.service';
 
 @Component({
   selector: 'app-product-card',
@@ -25,7 +26,8 @@ export class ProductCardComponent implements OnInit  {
   wishListItems: WishListItem[] = []; 
   cartItems: CartItem[] = []; 
 
-  constructor(private store: Store<AppState>,private popup:MessageService,private router: Router, private route: ActivatedRoute ) {
+  constructor(private store: Store<AppState>,private popup:MessageService,private router: Router, private route: ActivatedRoute, private cartDrawer: CartDrawerService
+   ) {
     this.store.select(state => state.wishList.items).subscribe(id => {
       this.wishListItems = id;
     });
@@ -56,8 +58,11 @@ ViewProduct(id: number) {
     // this.popup.showMessage({ type: 'success', text: 'Product added to wishlist!' });
   }
 
-AddToCart(productId: number) {
-      this.store.dispatch(addToCart({ productId }));
-} 
+async AddToCart(productId: number) {
+    await this.store.dispatch(addToCart({ productId }));
+    setTimeout(() => {
+        this.cartDrawer.OpenCart();
+    }, 500);
+}
 
 }
