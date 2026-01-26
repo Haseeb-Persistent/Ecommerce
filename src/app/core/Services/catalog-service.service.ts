@@ -1,58 +1,72 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BrandResDto, CatagoryResDto, ProductFilter, ProductPaginationRes, ProductResDto } from '../Models/catalog';
-import { ResponseDto } from '../Models/ResponseDto';
-import { environment } from '../enviroment/enviroment';
 import { Observable } from 'rxjs';
+import { environment } from '../enviroment/enviroment';
+import { 
+  BrandResDto, 
+  CatagoryResDto, 
+  ProductFilter, 
+  ProductPaginationRes, 
+  ProductResDto 
+} from '../Models/catalog';
+import { ResponseDto } from '../Models/ResponseDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CatalogService {
 
-constructor(private http:HttpClient) { }
+  private apiUrl = environment.baseApi + 'Catalog';
 
-getCategories(){
-  return this.http.get<ResponseDto<CatagoryResDto[]>>(
-    `${environment.baseApi}Catalog/category/getall`
-  );
-}
+  constructor(private http: HttpClient) { }
 
-getBrands(){
-  return this.http.get<ResponseDto<BrandResDto[]>>(
-    `${environment.baseApi}Catalog/brand/getall`
-  );
-}
-  AddCategory(formData: FormData): Observable<any> {
-    return this.http.post(`${environment.baseApi}Catalog/category/create`, formData);
+  // ----------------- Categories -----------------
+  getCategories(): Observable<ResponseDto<CatagoryResDto[]>> {
+    return this.http.get<ResponseDto<CatagoryResDto[]>>(
+      `${this.apiUrl}/category/getall`
+    );
   }
 
-AddBrand(formData: FormData): Observable<any> {
-  return this.http.post(
-    'https://haseebapieshop.runasp.net/api/Catalog/brand/create',
-    formData
-  );
-}
-AddProduct(formData: FormData): Observable<any> {
-  return this.http.post(
-    'https://haseebapieshop.runasp.net/api/Catalog/product/create',
-    formData
-  );
-}
+  addCategory(formData: FormData): Observable<ResponseDto<CatagoryResDto>> {
+    return this.http.post<ResponseDto<CatagoryResDto>>(
+      `${this.apiUrl}/category/create`,
+      formData
+    );
+  }
 
+  // ----------------- Brands -----------------
+  getBrands(): Observable<ResponseDto<BrandResDto[]>> {
+    return this.http.get<ResponseDto<BrandResDto[]>>(
+      `${this.apiUrl}/brand/getall`
+    );
+  }
 
+  addBrand(formData: FormData): Observable<ResponseDto<BrandResDto>> {
+    return this.http.post<ResponseDto<BrandResDto>>(
+      `${this.apiUrl}/brand/create`,
+      formData
+    );
+  }
 
-getAllProducts(filter?: ProductFilter) {
-  return this.http.post<ResponseDto<ProductPaginationRes>>(
-    `${environment.baseApi}Catalog/product/getall`,
-    filter ?? {}  
-  );
-}
+  // ----------------- Products -----------------
+  getAllProducts(filter?: ProductFilter): Observable<ResponseDto<ProductPaginationRes>> {
+    return this.http.post<ResponseDto<ProductPaginationRes>>(
+      `${this.apiUrl}/product/getall`,
+      filter ?? {}
+    );
+  }
 
+  getProductById(id: number): Observable<ResponseDto<ProductResDto>> {
+    return this.http.get<ResponseDto<ProductResDto>>(
+      `${this.apiUrl}/product/${id}`
+    );
+  }
 
-
-
-
-
+  addProduct(formData: FormData): Observable<ResponseDto<ProductResDto>> {
+    return this.http.post<ResponseDto<ProductResDto>>(
+      `${this.apiUrl}/product/create`,
+      formData
+    );
+  }
 
 }

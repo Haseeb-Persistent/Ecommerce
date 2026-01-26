@@ -34,7 +34,7 @@ submitBrand() {
     formData.append('Image', this.selectedImage);
   }
 
-  this.catalogService.AddBrand(formData).subscribe({
+  this.catalogService.addBrand(formData).subscribe({
     next: res => alert('Brand added!'),
     error: err => console.error(err)
   });

@@ -70,7 +70,7 @@ this.catalogService.getBrands().subscribe(res => {
       formData.append('Thumbnail', this.selectedImage); 
     }
 
-    this.catalogService.AddProduct(formData).subscribe({
+    this.catalogService.addProduct(formData).subscribe({
       next: (res) => {
          this.loader.show();
         this.productForm.reset();

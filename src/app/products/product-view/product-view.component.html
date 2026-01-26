@@ -1,5 +1,65 @@
-<section class="container">
-     <div class="row">
-         <h2>View-Cart</h2>
-     </div>
-</section>
+<div class="container" *ngIf="product">
+  <div class="product-page">
+    <div class="product-grid">
+
+      <!-- Left: Image -->
+      <div class="product-image-container">
+        <div class="discount-badge" *ngIf="product.isOnDiscount">
+          {{ product.discountPercentage }}% OFF
+        </div>
+        <img 
+          [src]="getImageUrl()" 
+          [alt]="product.name" 
+          class="product-image-View"
+        />
+      </div>
+
+      <!-- Right: Info -->
+      <div class="product-info">
+
+        <div class="brand">{{ product.brand?.name }}</div>
+        <h1>{{ product.name }}</h1>
+
+        <div class="price-container">
+          <span class="current-price">Rs. {{ product.newPrice | number:'1.0-0' }}</span>
+          <span class="old-price" *ngIf="product.isOnDiscount">
+            Rs. {{ product.orignalPrice | number:'1.0-0' }}
+          </span>
+        </div>
+
+        <p class="description">{{ product.description }}</p>
+ <div class="action-btn">
+  <div class="quantity-selector w-100">
+    <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
+    <input type="number" [value]="quantity" readonly />
+    <button (click)="increaseQuantity()" [disabled]="quantity >= product.stockQuantity">+</button>
+  </div>
+
+  <div>
+    <button class="btn-Own-cart " [disabled]="!product.inStock" (click)="AddToCart(product.id)">
+      {{ product.inStock ? 'Add to Cart' : 'Out of Stock' }}
+    </button>
+  </div>
+  <div>
+    <button routerLink="/Cart" class="btn-Own-view mt-2 " [disabled]="!product.inStock" >
+      View Cart
+    </button>
+  </div>
+</div>
+
+       
+
+        <div class="meta">
+          <p><span>SKU:</span> {{ product.id }}</p>
+          <p><span>Availability:</span> {{ product.inStock ? 'In Stock' : 'Out of Stock' }} ({{ product.stockQuantity }} units left)</p>
+          <p><span>Category:</span> {{ product.category?.name || '-' }}</p>
+          <p><span>Brand:</span> {{ product.brand?.name }}</p>
+          <p><span>Average Rating:</span> {{ product.avearageRating }} ⭐ ({{ product.totalReviews }} reviews)</p>
+          <p><span>Free Shipping:</span> On orders over $50</p>
+          <p><span>30-Day Returns:</span> Hassle-free</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

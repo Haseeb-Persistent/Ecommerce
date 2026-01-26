@@ -14,7 +14,7 @@
             </div>
 
             <img 
-                src="assets/home-img.png" 
+                src="assets/home-ig.mpng" 
                 alt="Fashion trending collection" 
                 class="home__img" 
             />
@@ -47,19 +47,43 @@
       "
       alt="category"
     />
-
-    <h3>{{ item.name }}</h3>
+<div class="catagory__title">
+    {{ item.name }}
+</div>
   </div>
 </div>
 
     <!-- RIGHT -->
-    <button class="slide-btn right" (click)="scrollRight()">
+    <button class="slide-btn right" (click)="scrollRight()" *ngIf="ListCategory.length>6">
 <i class="fa-solid fa-chevron-right"></i>
-
     </button>
   </div>
 </section>
+<section class="newsletter section home__newsletter">
+  <div class="newsletter__container container grid">
+    <h3 class="newsletter__title">
+      <img 
+        src="assets/img/icon-email.svg" 
+        alt="newsletter_icon" 
+        class="newsletter__icon"
+      />
+      Sign up to Newsletter
+    </h3>
 
+    <p class="newsletter__description">
+      ...and receive $25 coupon for first shopping.
+    </p>
+
+    <form action="" class="newsletter__form">
+      <input 
+        type="text" 
+        placeholder="Enter your email" 
+        class="newsletter__input"
+      />
+      <button type="submit" class="newsletter__button">Subscribe</button>
+    </form>
+  </div>
+</section>
 
 
 

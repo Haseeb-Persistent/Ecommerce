@@ -8,6 +8,7 @@ import { WishListItem } from '../../core/Models/WishListItem';
 import { MessageService } from '../../core/Services/messgae.service';
 import { CartItem } from '../../core/Models/Cart';
 import { addToCart } from '../../../redux/Cart/cart-action';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -24,7 +25,7 @@ export class ProductCardComponent implements OnInit  {
   wishListItems: WishListItem[] = []; 
   cartItems: CartItem[] = []; 
 
-  constructor(private store: Store<AppState>,private popup:MessageService) {
+  constructor(private store: Store<AppState>,private popup:MessageService,private router: Router, private route: ActivatedRoute ) {
     this.store.select(state => state.wishList.items).subscribe(id => {
       this.wishListItems = id;
     });
@@ -40,8 +41,9 @@ export class ProductCardComponent implements OnInit  {
 // ViewProduct(id:number){
 //    this.selectedProduct = this.product.id
 // }
-
-
+ViewProduct(id: number) {
+  this.router.navigate(['detail', id], { relativeTo: this.route });
+}
   getImageUrl(): string {
     if (!this.product?.thumbnail?.imageUrl) {
       return '/assets/no-image.png';

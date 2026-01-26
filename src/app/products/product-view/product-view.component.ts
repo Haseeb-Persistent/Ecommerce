@@ -1,25 +1,68 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ProductResDto } from '../../core/Models/catalog';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../redux/store';
-import { MessageService } from '../../core/Services/messgae.service';
-import { addToWishlist } from '../../../redux/Wishlist/wishlist-action';
-import { environment } from '../../core/enviroment/enviroment';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CatalogService } from '../../core/Services/catalog-service.service';
+import { ProductResDto } from '../../core/Models/catalog';
+import { environment } from '../../core/enviroment/enviroment';
+import { AppState } from '../../../redux/store';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../../redux/Cart/cart-action';
 
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
-  styleUrl: './product-view.component.css'
+  styleUrls: ['./product-view.component.css']
 })
 export class ProductViewComponent implements OnInit {
+  product!: ProductResDto | null;
+  apiUrl = environment.imageBaseApi;
 
-  constructor(private acticeRoute:ActivatedRoute){}
-  ngOnInit(): void {
-    let productId = this.acticeRoute.snapshot.paramMap.get('id')
+  constructor(
+    private route: ActivatedRoute,
+    private productService: CatalogService,
+    private store: Store<AppState>
+  ) {}
+
+ngOnInit(): void {
+  const id = Number(this.route.snapshot.paramMap.get('id'));
+  console.log('PRODUCT ID:', id);
+
+  if (!id) return;
+
+  this.productService.getProductById(id)
+    .subscribe(res => {
+      console.log('API RESPONSE:', res);
+      this.product = res.data;
+    }, err => console.error('API ERROR:', err));
 }
 
- @Input() product!: ProductResDto; 
- 
+
+  getImageUrl(): string {
+    if (!this.product?.thumbnail?.imageUrl) {
+      return '/assets/no-image.png';
+    }
+    return this.apiUrl + '/' + this.product.thumbnail.imageUrl.replace(/\\/g, '/');
+  }
+  quantity: number = 1;
+
+increaseQuantity() {
+  if (this.product && this.quantity < this.product.stockQuantity) {
+    this.quantity++;
+  }
+}
+
+decreaseQuantity() {
+  if (this.product && this.quantity > 1) {
+    this.quantity--;
+  }
+}
+
+
+
+AddToCart( productId: number) {
+        this.store.dispatch(addToCart({ productId }));
+  
+  // if (!product) return;
+  // console.log('Adding', quantity, 'of', product.name, 'to cart');
+}
 
 }

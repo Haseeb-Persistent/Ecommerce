@@ -6,6 +6,7 @@ import { WishListComponent } from './wish-list/wish-list.component';
 import { authGuard } from './core/guard/auth.guard';
 import { CartComponent } from './cart/cart.component';
 import { AdminGuard } from './core/guard/admin.guard';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'dashboard', component: HomePageComponent },
       { path: 'WishList', component: WishListComponent },
       { path: 'Cart', component: CartComponent },
+      { path: 'UserAccount', component: AccountComponent },
       {
         path: 'products',
         loadChildren: () =>

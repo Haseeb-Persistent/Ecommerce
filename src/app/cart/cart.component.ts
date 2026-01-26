@@ -13,9 +13,9 @@ import { Store } from '@ngrx/store';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-CartItem$ = this.store.select(selectCartItems);
+ CartItem$ = this.store.select(selectCartItems);
  product!:ProductResDto;
-apiUrl = environment.imageBaseApi;
+ apiUrl = environment.imageBaseApi;
 
   constructor(
     @Inject(BASE_IMAGE_API) public image: string,
@@ -33,6 +33,7 @@ apiUrl = environment.imageBaseApi;
 CheckOut(id: number) {
     console.log('Check Out'); 
 }
+
 AddToCart(productId: number) {
       this.store.dispatch(addToCart({ productId }));
 } 
@@ -41,13 +42,11 @@ AddToCart(productId: number) {
     if (!product?.thumbnail?.imageUrl) {
       return '/assets/no-image.png';
     }
-
     return (
       this.apiUrl +
       '/image/' +
       product.thumbnail.imageUrl.replace(/\\/g, '/')
     );
   }
-
 }
 
