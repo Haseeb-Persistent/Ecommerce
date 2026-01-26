@@ -57,7 +57,9 @@ export class CartComponent implements OnInit {
   close() {
     this.cartDrawer.CloseCart();
   }
-
+  removeFromCart(productId: number) {
+  this.store.dispatch(removeFromCart({ productId }));
+}
   trackById(index: number, item: any) {
     return item.product.id;
   }

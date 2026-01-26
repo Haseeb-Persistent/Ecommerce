@@ -6,6 +6,7 @@ import { environment } from '../../core/enviroment/enviroment';
 import { AppState } from '../../../redux/store';
 import { Store } from '@ngrx/store';
 import { addToCart } from '../../../redux/Cart/cart-action';
+import { CartDrawerService } from '../../core/Services/cart-drawer.service';
 
 @Component({
   selector: 'app-product-view',
@@ -19,7 +20,8 @@ export class ProductViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: CatalogService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private cartDraw :CartDrawerService
   ) {}
 
 ngOnInit(): void {
@@ -35,7 +37,9 @@ ngOnInit(): void {
     }, err => console.error('API ERROR:', err));
 }
 
-
+OpenCartDrawer(){
+   this.cartDraw.OpenCart()
+}
   getImageUrl(): string {
     if (!this.product?.thumbnail?.imageUrl) {
       return '/assets/no-image.png';

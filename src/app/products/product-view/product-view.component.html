@@ -41,7 +41,7 @@
     </button>
   </div>
   <div>
-    <button routerLink="/Cart" class="btn-Own-view mt-2 " [disabled]="!product.inStock" >
+    <button (click)="OpenCartDrawer()"  class="btn-Own-view mt-2 " [disabled]="!product.inStock" >
       View Cart
     </button>
   </div>
