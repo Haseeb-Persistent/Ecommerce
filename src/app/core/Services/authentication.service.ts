@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, sPLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginReq, LoginResData } from '../Models/LoginReq';
@@ -16,7 +16,7 @@ export class AuthService {
   IsUserLoggedIn: boolean = false;
   isLoggingIn: boolean = false;
   apiUrl: string = environment.baseApi + 'Auth';
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(private http: HttpClient, @Inject(sPLATFORM_ID) private platformId: Object) { }
 
   login(credential: LoginReq) {
     this.isLoggingIn = true;
@@ -112,7 +112,6 @@ isAdmin(): boolean {
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
-
 
   getToken(): string | null {
     if (!this.isBrowser()) return null;

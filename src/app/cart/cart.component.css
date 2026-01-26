@@ -62,7 +62,7 @@
 /* ✅ MAIN SCROLL FIX */
 .cart-body {
   flex: 1;
-  padding: 25px;
+  padding: 18px;
   overflow-y: auto;
 }
 
@@ -95,5 +95,6 @@
   color: white;
   border: none;
 }
-.info{
+p{
+  margin-bottom: 0px;
 }
