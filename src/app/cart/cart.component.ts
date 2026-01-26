@@ -1,4 +1,4 @@
-import { Component, Inject, InjectionToken, OnInit, sPLATFORM_ID } from '@angular/core';
+import { Component, Inject, InjectionToken, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
@@ -22,7 +22,6 @@ export class CartComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private cartDrawer: CartDrawerService,
-  @Inject(sPLATFORM_ID) private platformId: any,
     @Inject(BASE_IMAGE_API) private imageUrl: string
   ) {
     this.CartItem$ = this.store.select(selectCartItems);
@@ -39,9 +38,7 @@ export class CartComponent implements OnInit {
 
     this.cartDrawer.drawer$.subscribe(val => {
       this.isOpen = val;
-     if (isPlatformBrowser(this.platformId)) {
         document.body.style.overflow = val ? 'hidden' : 'auto';
-      }
     });
   }
 
