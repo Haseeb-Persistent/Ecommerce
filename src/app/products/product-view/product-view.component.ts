@@ -63,10 +63,7 @@ decreaseQuantity() {
 
 
 AddToCart( productId: number) {
-        this.store.dispatch(addToCart({ productId }));
-  
-  // if (!product) return;
-  // console.log('Adding', quantity, 'of', product.name, 'to cart');
+   this.store.dispatch(addToCart({ productId }));
 }
 
 }

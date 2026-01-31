@@ -1,0 +1,84 @@
+.success-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-card {
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,.1);
+}
+
+.icon-box {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  background: #ff8a3d;
+  color: #fff;
+  font-size: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ff8a3d;
+  border-radius: 50%;
+  animation: float 1.5s infinite ease-in-out;
+}
+
+.d1 { top: -10px; left: 45%; }
+.d2 { top: 10px; right: 20%; }
+.d3 { bottom: 0; left: 20%; }
+.d4 { bottom: 10px; right: 30%; }
+
+@keyframes float {
+  0% { transform: scale(1); opacity: .6; }
+  50% { transform: scale(1.4); opacity: 1; }
+  100% { transform: scale(1); opacity: .6; }
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+}
+
+.btn.outline {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.btn.solid {
+  background: #ff8a3d;
+  color: #fff;
+}

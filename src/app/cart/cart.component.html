@@ -1,74 +1,91 @@
-<!-- overlay -->
 <div class="overlay" [class.show]="isOpen" (click)="close()"></div>
 
 <div class="cart-drawer" [class.open]="isOpen">
 
   <!-- HEADER -->
-  <div class="cart-header">
+<div class="cart-header">
+  <ng-container *ngIf="CartItem$ | async as cartItem">
+
     <h5>
-      <i style="color: var(--first-color);" class="fa fa-shopping-bag"></i>
-      {{ (CartItem$ | async)?.length || 0 }} items
+      <i class="fa fa-shopping-bag" style="color: var(--first-color);"></i>
+
+      <span *ngIf="cartItem.length > 0; else emptyCart">
+        {{ cartItem.length }} items
+      </span>
+
+      <ng-template #emptyCart>
+        Cart
+      </ng-template>
+
     </h5>
 
-    <button (click)="close()">
-      <i class="fa fa-times"></i>
-    </button>
-  </div>
+  </ng-container>
 
-  <!-- FREE SHIPPING -->
-  <div class="free-ship">
-    You are eligible for free shipping!
-  </div>
+  <button (click)="close()">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
 
-  <!-- BODY -->
-  <div class="cart-body">
+
+  <ng-container *ngIf="!authService.isLoggedIn(); else loggedInBlock">
+    <div class="noItem">
+      <h5>Please login to view your cart</h5>
+      <button class="btn-Own" routerLink="/login">
+        Login
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #loggedInBlock>
     <ng-container *ngIf="CartItem$ | async as cartItems">
-      <div
-        class="cart-item"
-        *ngFor="let item of cartItems; trackBy: trackById"
-      >
-        <img
-          [src]="getImageUrl(item.product)"
-          alt=""
-        />
+      <div class="noItem" *ngIf="cartItems.length === 0">
+        <h5>Your cart is empty</h5>
+        <button class="btn-Own" (click)="RedirectToShop()">
+          Continue Shopping
+        </button>
+      </div>
+      <div class="cart-body" *ngIf="cartItems.length > 0">
+        <div data-aos="fade-left" >
+   <div class="cart-item"  *ngFor="let item of cartItems; trackBy: trackById">
+  <button
+    (click)="removeFromCart(item.product.id)"
+  >
+    <i style="color: var(--first-color);" class="fa fa-times"></i>
+  </button>
+  <img [src]="getImageUrl(item.product)" />
+  <div class="info">
+    <span (click)="ViewItem(item.product.id)" >{{ item.product.name }}</span>
 
-        <div class="info">
-          <span>{{ item.product.name }}</span> 
-    
-          <div style="display: flex;gap: 4px;">
-  <p *ngIf="item.product.isOnDiscount === true">
-            <del>Rs. {{ item.product.orignalPrice }}</del>
-          </p>
+    <div style="display:flex;gap:6px;">
+      <p *ngIf="item.product.isOnDiscount">
+        <del>Rs. {{ item.product.orignalPrice }}</del>
+      </p>
+      <p style="color: var(--first-color);">
+        Rs. {{ item.product.newPrice }}
+      </p>
+    </div>
 
-          <p style="color: var(--first-color);">
-            Rs. {{ item.product.newPrice }}
-          </p>
-          </div>
-        
-   
-          <div class="qty">
-            <button (click)="decrease(item.product.id)">-</button>
-            <span>{{ item.quantity }}</span>
-            <button (click)="increase(item.product.id)">+</button>
-          </div>
-        </div>
-
-        <!-- <div class="price">
-          Rs. {{ item.product.newPrice * item.quantity }}
-        </div> -->
+    <div class="qty">
+      <button [disabled]="item.quantity ===1" (click)="decrease(item.product.id)">-</button>
+      <span>{{ item.quantity }}</span>
+      <button (click)="increase(item.product.id)">+</button>
+    </div>
+  </div>
+   </div>
+</div>
 
       </div>
 
-    </ng-container>
 
-  </div>
 
   <!-- FOOTER -->
-  <div class="cart-footer">
-    <button class="checkout-btn">
+     <div class="cart-footer" *ngIf="cartItems.length > 0">
+    <button class="checkout-btn" (click)="GotoCheckOut()">
       <i class="fa fa-lock"></i>
       CHECKOUT · Rs. {{ totalPrice$ | async }} PKR
     </button>
   </div>
+     </ng-container>
+  </ng-template>
+ 
 
-</div>

@@ -20,7 +20,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
     FilterComponent,
     SortHeaderComponent,
     ProductCardComponent,
-    ProductViewComponent
+    ProductViewComponent,
   ],
   imports: [
     CommonModule,

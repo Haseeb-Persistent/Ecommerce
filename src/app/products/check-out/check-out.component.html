@@ -1,0 +1,54 @@
+  <div class="checkout-container">
+    <h2 class="checkout-title">Checkout</h2>
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <h5>Billing & Shipping Details</h5>
+        <form #checkoutForm="ngForm">
+          <div class="mb-3">
+            <label>Full Name</label>
+            <input [(ngModel)]="billing.fullname" name="fullname" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Email</label>
+            <input [(ngModel)]="billing.email" name="email" type="email" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Phone</label>
+            <input [(ngModel)]="billing.phone" name="phone" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Address</label>
+            <input [(ngModel)]="billing.address" name="address" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>City</label>
+            <input [(ngModel)]="billing.city" name="city" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>State</label>
+            <input [(ngModel)]="billing.state" name="state" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>ZIP</label>
+            <input [(ngModel)]="billing.zip" name="zip" class="form-control" required>
+          </div>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-5">
+        <h5>Order Summary</h5>
+        <div class="order-summary">
+          <div class="order-item" *ngFor="let item of cartItems$ | async">
+            <span>{{ item.product.name }}</span>
+            <span>Rs. {{ item.product.newPrice * item.quantity }}</span>
+          </div>
+          <div class="order-total d-flex justify-content-between">
+            <span>Total</span>
+            <span>Rs. {{ totalPrice$ | async }}</span>
+          </div>
+          <button class="btn btn-checkout w-100 mt-4" (click)="placeOrder()">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </div>

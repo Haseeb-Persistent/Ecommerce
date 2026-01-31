@@ -1,7 +1,6 @@
 :root {
   --first-color: hsl(176, 70%, 38%);
 }
-
 /* overlay */
 /* overlay hidden by default */
 .overlay {
@@ -65,22 +64,80 @@
   padding: 18px;
   overflow-y: auto;
 }
-
-/* item */
 .cart-item {
   display: flex;
-  gap: 12px;
-  margin-bottom: 15px;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+  align-items: flex-start;
 }
 
 .cart-item img {
-  width: 70px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
-.qty {
+.info {
+  flex: 1;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* product title */
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* price row */
+.price {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.price del {
+  color: #999;
+  font-size: 13px;
+}
+
+.price span {
+  color: var(--first-color);
+  font-weight: 600;
+}
+
+/* qty box (Shopify vibe) */
+.qty {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: fit-content;
+  overflow: hidden;
+}
+
+.qty button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.qty span {
+  width: 34px;
+  text-align: center;
+  font-size: 14px;
 }
 
 .cart-footer {
@@ -97,4 +154,15 @@
 }
 p{
   margin-bottom: 0px;
+}
+
+
+.noItem{
+    text-align: center;
+    display: block;
+    flex-grow: 0;
+    margin-block-start: auto;
+    margin-block-end: auto;
+    padding-block-end: 0;
+    align-items: center;
 }

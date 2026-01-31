@@ -25,3 +25,18 @@ export const removeFromCart = createAction(
   '[Cart] Remove',
   props<{ productId: number }>()
 );
+// Increase quantity (local)
+export const increaseQtyLocal = createAction(
+  '[Cart] Increase Quantity',
+  props<{ productId: number }>()
+);
+
+// Decrease quantity (local)
+export const decreaseQtyLocal = createAction(
+  '[Cart] Decrease Quantity',
+  props<{ productId: number }>()
+);
+
+export const clearCartLocal = createAction('[Cart] Clear Cart');
+
+

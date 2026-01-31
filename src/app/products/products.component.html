@@ -5,7 +5,9 @@
       You Are Not Logged In. Please Login to View Products.
     </h2>
 </ng-container>
-
+   <div data-aos="fade-up"
+     data-aos-anchor-placement="top-center">
+</div>
 
 <ng-container *ngIf="IsUserLoggedIn" >
     <div  class="container">
@@ -16,6 +18,7 @@
         <div class="col-9">
             <app-sort-header [itemToShow]="pageSize" [pageItem]="count"   (sortHeaderChanges)="sortHeaderChanges($event)"></app-sort-header>
             <div class="product-grid">
+             
            <app-product-card *ngFor="let p of products" [product]="p" ></app-product-card>
                 
             </div>

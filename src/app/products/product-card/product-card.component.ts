@@ -7,9 +7,10 @@ import { addToWishlist } from '../../../redux/Wishlist/wishlist-action';
 import { WishListItem } from '../../core/Models/WishListItem';
 import { MessageService } from '../../core/Services/messgae.service';
 import { CartItem } from '../../core/Models/Cart';
-import { addToCart } from '../../../redux/Cart/cart-action';
+import { addToCart, clearCartLocal } from '../../../redux/Cart/cart-action';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CartDrawerService } from '../../core/Services/cart-drawer.service';
+import Aos from 'aos';
 
 @Component({
   selector: 'app-product-card',
@@ -59,9 +60,13 @@ ViewProduct(id: number) {
   }
 
 async AddToCart(productId: number) {
+   this.store.dispatch(clearCartLocal());
+  this.cartDrawer.OpenCart();
     await this.store.dispatch(addToCart({ productId }));
+    
     setTimeout(() => {
         this.cartDrawer.OpenCart();
+              Aos.refreshHard();
     }, 500);
 }
 

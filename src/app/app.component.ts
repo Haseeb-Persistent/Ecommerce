@@ -1,58 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { CatagoryResDto } from './core/Models/catalog';
-import { AppState } from '../redux/store';
-import { Store } from '@ngrx/store';
-import { selectCategories } from '../redux/Catalog/catalog-selector';
-import { loadCategories } from '../redux/Catalog/catalog-action';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { WishListItem } from './core/Models/WishListItem';
-import { selectWishlistItems } from '../redux/Wishlist/wish-selector';
-import { MessageService } from './core/Services/messgae.service';
-import { AuthService } from './core/Services/authentication.service';
-import { CartDrawerService } from './core/Services/cart-drawer.service';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
-  title = 'client';
-   showLayout = true;
+export class AppComponent implements OnInit, AfterViewInit {
 
-  categories$:Observable<CatagoryResDto[]>;
-   wishlist$!: Observable<WishListItem[]>; // wishlist$ is an Observable of array
+  showLayout = true;
 
-  constructor(private store:Store<AppState>,private router: Router,private pop:MessageService,private cartDrawer: CartDrawerService){
-    this.categories$ = this.store.select(selectCategories);
-      this.wishlist$ = this.store.select(selectWishlistItems);
-  }
-
-  
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-
-
-      this.wishlist$ = this.store.select(selectWishlistItems);
-    this.categories$.pipe(
-      tap((categories)=>{
-        if(categories.length===0){
-          this.store.dispatch(loadCategories({force: false}));
-        }
-      })
-    )
-    .subscribe()
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (event.url.includes('/Admin') || event.url.includes('/Authentication')   )  {
-          this.showLayout = false;
-        } else {
-          this.showLayout = true;
-        }
+
+        // layout hide/show
+        this.showLayout = !(
+          event.url.includes('/Admin') ||
+          event.url.includes('/Authentication')
+        );
+
+        // 🔥 AOS FIX
+        setTimeout(() => {
+          AOS.refreshHard();
+        }, 100);
       }
     });
   }
-     // use this.
 
+  ngAfterViewInit(): void {
+    AOS.init({
+      duration: 900,
+      easing: 'ease-in-out',
+      once: true
+    });
   }
+}

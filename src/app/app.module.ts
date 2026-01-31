@@ -37,7 +37,8 @@ import { CartComponent } from './cart/cart.component';
 import { AccountComponent } from './account/account.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-import { CheckOutComponent } from './check-out/check-out.component';
+import { CheckOutComponent } from './products/check-out/check-out.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { CheckOutComponent } from './check-out/check-out.component';
     MyAccountComponent,
     ContactUsComponent,
     CheckOutComponent,
-    
+    OrderSuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,11 +62,11 @@ import { CheckOutComponent } from './check-out/check-out.component';
     AddCatalogModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserModule,
     HttpClientModule,
     RouterModule,
     StoreModule.forRoot(store),
     EffectsModule.forRoot([...appEffects]),
+    
   ],
 providers: [
   { provide: BASE_API, useValue: environment.baseApi },
