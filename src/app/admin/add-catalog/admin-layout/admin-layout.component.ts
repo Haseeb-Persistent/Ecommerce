@@ -11,7 +11,7 @@ export class AdminLayoutComponent implements CanActivate {
   constructor(private auth: AuthService, private router: Router) { }
 canActivate(): boolean {
     if (this.auth.isAdmin()) return true;
-    this.router.navigate(['/']); // redirect non-admin users
+    this.router.navigate(['/']); 
     return false;
   }
 }

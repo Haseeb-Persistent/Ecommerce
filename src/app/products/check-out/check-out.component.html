@@ -1,4 +1,4 @@
-  <div class="checkout-container">
+  <!-- <div class="checkout-container">
     <h2 class="checkout-title">Checkout</h2>
     <div class="row g-4">
       <div class="col-lg-7">
@@ -35,7 +35,7 @@
         </form>
       </div>
 
-      <!-- Order Summary -->
+   
       <div class="col-lg-5">
         <h5>Order Summary</h5>
         <div class="order-summary">
@@ -51,4 +51,58 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <section class="contact-section">
+    
+  <div class="contact-container">
+    <!-- LEFT: FORM -->
+   <div class="contact-form">
+  <h2 class="contact-title">Checkout</h2>
+  <h5>Billing & Shipping Details</h5>
+
+  <form #checkoutForm="ngForm">
+
+    <div class="form-row">
+      <input [(ngModel)]="billing.fullname" name="fullname" placeholder="Full Name" required>
+      <input [(ngModel)]="billing.email" name="email" type="email" placeholder="Email" required>
+    </div>
+
+    <div class="form-row">
+      <input [(ngModel)]="billing.phone" name="phone" placeholder="Phone" required>
+      <input [(ngModel)]="billing.city" name="city" placeholder="City" required>
+    </div>
+
+    <div class="form-row">
+      <input [(ngModel)]="billing.state" name="state" placeholder="State" required>
+      <input [(ngModel)]="billing.zip" name="zip" placeholder="ZIP" required>
+    </div>
+
+    <textarea [(ngModel)]="billing.address" name="address" placeholder="Address" required></textarea>
+
+    <button type="submit">Place Order</button>
+  </form>
+</div>
+
+    <!-- RIGHT: ABOUT -->
+<div class="contact-about">
+  <h2>Order Summary</h2>
+
+  <div class="order-summary">
+    <div class="order-item" *ngFor="let item of cartItems$ | async">
+      <span class="item-name">{{ item.product.name }}</span>
+      <span class="item-price">Rs. {{ item.product.newPrice * item.quantity }}</span>
+    </div>
+
+    <div class="order-total">
+      <span>Total</span>
+      <span>Rs. {{ totalPrice$ | async }}</span>
+    </div>
+
+    <button class="btn-checkout" (click)="placeOrder()">Place Order</button>
   </div>
+</div>
+
+  </div>
+</section>
+

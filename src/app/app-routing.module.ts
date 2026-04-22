@@ -9,6 +9,7 @@ import { AdminGuard } from './core/guard/admin.guard';
 import { AccountComponent } from './account/account.component';
 import { CheckOutComponent } from './products/check-out/check-out.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: 'dashboard', component: HomePageComponent },
       { path: 'WishList', component: WishListComponent },
       { path: 'Cart', component: CartComponent },
+      { path: 'ContactUs', component: ContactUsComponent },
       {
   path: 'CheckOut',
   component: CheckOutComponent

@@ -3,128 +3,134 @@ import { BrandResDto, CatagoryResDto } from '../../core/Models/catalog';
 import { Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectBrands, selectCategories } from '../../../redux/Catalog/catalog-selector';
-import { loadBrands } from '../../../redux/Catalog/catalog-action';
+import { loadBrands, loadCategories } from '../../../redux/Catalog/catalog-action';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css'] 
+  styleUrls: ['./filter.component.css']
 })
-export class FilterComponent implements  OnInit {
+export class FilterComponent implements OnInit {
 
- categories$:Observable<CatagoryResDto[]>
- brands$:Observable<BrandResDto[]>;
+  categories$: Observable<CatagoryResDto[]>
+  brands$: Observable<BrandResDto[]>;
 
-  constructor(private store:Store) {
-this.categories$ = this.store.select(selectCategories);
- this.brands$ = this.store.select(selectBrands);
-     
-   }
+  constructor(private store: Store) {
+    this.categories$ = this.store.select(selectCategories);
+    this.brands$ = this.store.select(selectBrands);
 
-
-   ngOnInit(): void {
-      this.brands$.pipe( 
-         tap(brands=> {
-           if(brands.length === 0 ) {
-             this.store.dispatch(loadBrands({ force: true }));
-         }
-        })
-      )
-      .subscribe();
-     
-   }
+  }
 
 
-  @Input() selectedCategoryIds: number  []=[];
-  @Input() selectedBrandIds: number  []=[];
+ngOnInit(): void {
+  this.brands$.pipe(
+    tap(brands => {
+      if (brands.length === 0) {
+        this.store.dispatch(loadBrands({ force: true }));
+      }
+    })
+  ).subscribe();
+
+  this.categories$.pipe(
+    tap(categories => {
+      if (categories.length === 0) {
+        this.store.dispatch(loadCategories({ force: true }));
+      }
+    })
+  ).subscribe();
+
+}
+
+  @Input() selectedCategoryIds: number[] = [];
+  @Input() selectedBrandIds: number[] = [];
   @Input() selectedStockType: boolean = true;
-  @Input() selectedRating: number  []=[];
+  @Input() selectedRating: number[] = [];
   @Input() minPrice!: number;
   @Input() maxPrice!: number;
   @Input() selectedMinPrice: number = this.minPrice;
   @Input() selectedMaxPrice: number = this.maxPrice;
-  @Output() filterChanged=new EventEmitter<any>();
+  @Output() filterChanged = new EventEmitter<any>();
 
 
 
 
 
-rating = [
-   {value:5,selected:false},
-   {value:4,selected:false},
-   {value:3,selected:false},
-   {value:2,selected:false},
-   {value:1,selected:false},    
-]
+  rating = [
+    { value: 5, selected: false },
+    { value: 4, selected: false },
+    { value: 3, selected: false },
+    { value: 2, selected: false },
+    { value: 1, selected: false },
+  ]
 
 
-  
-toggleRating(ratingValue: number) {
-   const index = this.selectedRating.indexOf(ratingValue);
-   if (index === -1) {
-     this.selectedRating.push(ratingValue);
-   } else {
-     this.selectedRating.splice(index, 1);
-   }
-   this.applyFilters();
-}
 
-toggleCategory(categoryId: number) {
-  const index = this.selectedCategoryIds.indexOf(categoryId); 
-  if(index === -1) {
-    this.selectedCategoryIds.push(categoryId);
-  } else {
-    this.selectedCategoryIds.splice(index, 1);
-  } 
-  this.applyFilters();
-}
-
-toggleBrand(BrandId: number) {
-  const index = this.selectedBrandIds.indexOf(BrandId); 
-  if(index === -1) {
-    this.selectedBrandIds.push(BrandId);
-  } else {
-    this.selectedBrandIds.splice(index, 1);
-  } 
-  this.applyFilters();
-}
-
-toggleStockType(value: boolean) {
-  this.selectedStockType = value;
-  this.applyFilters();
-} 
-updatePrice() {
-  // null / empty safety
-  if (this.selectedMinPrice == null) {
-    this.selectedMinPrice = this.minPrice;
+  toggleRating(ratingValue: number) {
+    const index = this.selectedRating.indexOf(ratingValue);
+    if (index === -1) {
+      this.selectedRating.push(ratingValue);
+    } else {
+      this.selectedRating.splice(index, 1);
+    }
+    this.applyFilters();
   }
 
-  if (this.selectedMaxPrice == null) {
-    this.selectedMaxPrice = this.maxPrice;
+  toggleCategory(categoryId: number) {
+    const index = this.selectedCategoryIds.indexOf(categoryId);
+    if (index === -1) {
+      this.selectedCategoryIds.push(categoryId);
+    } else {
+      this.selectedCategoryIds.splice(index, 1);
+    }
+    this.applyFilters();
   }
 
-  // logic fix
-  if (this.selectedMinPrice > this.selectedMaxPrice) {
-    const temp = this.selectedMinPrice;
-    this.selectedMinPrice = this.selectedMaxPrice;
-    this.selectedMaxPrice = temp;
+  toggleBrand(BrandId: number) {
+    const index = this.selectedBrandIds.indexOf(BrandId);
+    if (index === -1) {
+      this.selectedBrandIds.push(BrandId);
+    } else {
+      this.selectedBrandIds.splice(index, 1);
+    }
+    this.applyFilters();
   }
 
-  this.applyFilters();
-   this.selectedMaxPrice= null as any;
- this.selectedMinPrice= null as any;
-}
-
-applyFilters() {
-  const selectedFilters = {  
-      categoryId:this.selectedCategoryIds,
-      brandId:this.selectedBrandIds,
-      inStock:this.selectedStockType,
-      ratings:this.selectedRating,
-      minPrice:this.selectedMinPrice,
-      maxPrice:this.selectedMaxPrice
+  toggleStockType(value: boolean) {
+    this.selectedStockType = value;
+    this.applyFilters();
   }
- this.filterChanged.emit(selectedFilters);
-}
+  updatePrice() {
+    // null / empty safety
+    if (this.selectedMinPrice == null) {
+      this.selectedMinPrice = this.minPrice;
+    }
+
+    if (this.selectedMaxPrice == null) {
+      this.selectedMaxPrice = this.maxPrice;
+    }
+
+    // logic fix
+    if (this.selectedMinPrice > this.selectedMaxPrice) {
+      const temp = this.selectedMinPrice;
+      this.selectedMinPrice = this.selectedMaxPrice;
+      this.selectedMaxPrice = temp;
+    }
+
+    this.applyFilters();
+    this.selectedMaxPrice = null as any;
+    this.selectedMinPrice = null as any;
+  }
+
+  applyFilters() {
+    const selectedFilters = {
+      categoryId: this.selectedCategoryIds,
+      brandId: this.selectedBrandIds,
+      inStock: this.selectedStockType,
+      ratings: this.selectedRating,
+      minPrice: this.selectedMinPrice,
+      maxPrice: this.selectedMaxPrice
+    }
+    this.filterChanged.emit(selectedFilters);
+  }
 }
 

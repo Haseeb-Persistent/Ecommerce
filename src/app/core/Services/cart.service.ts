@@ -14,7 +14,6 @@ export class CartService {
 
 getCart() {
   const userId = this.getCurrentUserId();
-
   if (!userId) {
     return [];
   }
@@ -28,14 +27,12 @@ getCart() {
   addToCart(productId: number) {
     const userId = this.getCurrentUserId();
     if (!userId) throw new Error('User not logged in');
-
     return this.http.post<ResponseDto<null>>('Cart/Add', { userId, productId });
   }
 
   removeFromCart(productId: number) {
     const userId = this.getCurrentUserId();
     if (!userId) throw new Error('User not logged in');
-
     return this.http.delete<ResponseDto<null>>(`Cart/Remove/${userId}/${productId}`);
   }
 
