@@ -15,14 +15,16 @@ export class CartService {
 getCart() {
   const userId = this.getCurrentUserId();
   if (!userId) {
-    return [];
+    // Return an empty observable instead of []
+    return this.http.get<{ cartItems: CartItem[] }>(`Cart/${userId}`).pipe(
+      map(res => res.cartItems)
+    );
   }
 
   return this.http
     .get<{ cartItems: CartItem[] }>(`Cart/${userId}`)
     .pipe(map(res => res.cartItems));
 }
-
 
   addToCart(productId: number) {
     const userId = this.getCurrentUserId();

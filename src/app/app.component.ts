@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import * as AOS from 'aos';
 
@@ -8,33 +9,37 @@ import * as AOS from 'aos';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, AfterViewInit {
-
   showLayout = true;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object  // ADD THIS
+  ) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // layout hide/show
         this.showLayout = !(
           event.url.includes('/Admin') ||
           event.url.includes('/Authentication')
         );
 
-        // 🔥 AOS FIX
-        setTimeout(() => {
-          AOS.refreshHard();
-        }, 100);
+        if (isPlatformBrowser(this.platformId)) {  // ✅ ADD THIS CHECK
+          setTimeout(() => {
+            AOS.refreshHard();
+          }, 100);
+        }
       }
     });
   }
 
   ngAfterViewInit(): void {
-    AOS.init({
-      duration: 900,
-      easing: 'ease-in-out',
-      once: true
-    });
+    if (isPlatformBrowser(this.platformId)) {  // ✅ ADD THIS CHECK
+      AOS.init({
+        duration: 900,
+        easing: 'ease-in-out',
+        once: true
+      });
+    }
   }
 }

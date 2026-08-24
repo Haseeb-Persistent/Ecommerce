@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { ProductResDto } from '../../core/Models/catalog';
 import { environment } from '../../core/enviroment/enviroment';
 import { Store } from '@ngrx/store';
@@ -11,6 +11,7 @@ import { addToCart, clearCartLocal } from '../../../redux/Cart/cart-action';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { CartDrawerService } from '../../core/Services/cart-drawer.service';
 import Aos from 'aos';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
@@ -27,7 +28,8 @@ export class ProductCardComponent implements OnInit  {
   wishListItems: WishListItem[] = []; 
   cartItems: CartItem[] = []; 
 
-  constructor(private store: Store<AppState>,private popup:MessageService,private router: Router, private route: ActivatedRoute, private cartDrawer: CartDrawerService
+  constructor(private store: Store<AppState>,private popup:MessageService,private router: Router, private route: ActivatedRoute, private cartDrawer: CartDrawerService,  @Inject(PLATFORM_ID) private platformId: Object  // ADD THIS
+
    ) {
     this.store.select(state => state.wishList.items).subscribe(id => {
       this.wishListItems = id;
@@ -36,10 +38,12 @@ export class ProductCardComponent implements OnInit  {
       this.cartItems = id;
     });
   }
- ngOnInit(): void {
-    const role = localStorage.getItem('role'); // get role from localStorage
-    this.isAdmin = role === 'ADMIN';           // set admin flag
+ngOnInit(): void {
+  if (isPlatformBrowser(this.platformId)) {  
+    const role = localStorage.getItem('role');
+    this.isAdmin = role === 'ADMIN';
   }
+}
 
 // ViewProduct(id:number){
 //    this.selectedProduct = this.product.id
