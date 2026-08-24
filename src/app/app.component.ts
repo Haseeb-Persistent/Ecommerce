@@ -16,7 +16,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-
         // layout hide/show
         this.showLayout = !(
           event.url.includes('/Admin') ||

@@ -66,7 +66,6 @@ import { OrderSuccessComponent } from './order-success/order-success.component';
     RouterModule,
     StoreModule.forRoot(store),
     EffectsModule.forRoot([...appEffects]),
-    
   ],
 providers: [
   { provide: BASE_API, useValue: environment.baseApi },
